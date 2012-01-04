@@ -29,6 +29,7 @@ class BaseDomImplementation:
     def buildDocumentString(self, string):
         from java.io import StringReader
         from org.xml.sax import InputSource
+
         return self._parse_from_source(InputSource(StringReader(string)))
 
     def buildDocumentUrl(self, url):
@@ -37,81 +38,93 @@ class BaseDomImplementation:
     def buildDocumentFile(self, filename):
         return self.buildDocumentUrl(filetourl(filename))
 
-class SunDomImplementation:
 
+class SunDomImplementation:
     def createDocument(self):
         from com.sun.xml.tree import XmlDocument
+
         return Document(XmlDocument())
 
     def buildDocumentString(self, string):
         from com.sun.xml.tree import XmlDocumentBuilder
+
         return Document(XmlDocumentBuilder.createXmlDocument(string))
 
     def buildDocumentUrl(self, url):
         from com.sun.xml.tree import XmlDocument
+
         return Document(XmlDocument.createXmlDocument(url))
 
     def buildDocumentFile(self, filename):
         return self.buildDocumentUrl(filetourl(filename))
 
-class XercesDomImplementation(BaseDomImplementation):
 
+class XercesDomImplementation(BaseDomImplementation):
     def createDocument(self):
         from org.apache.xerces.dom import DocumentImpl
+
         return Document(DocumentImpl())
 
     def _parse_from_source(self, source):
         from org.apache.xerces.parsers import DOMParser
+
         p = DOMParser()
         p.parse(source)
         return Document(p.getDocument())
 
-class BrownellDomImplementation(BaseDomImplementation):
 
+class BrownellDomImplementation(BaseDomImplementation):
     def createDocument(self):
         from org.brownell.xml.dom import DomDocument
+
         return Document(DomDocument())
 
     def _parse_from_source(self, source):
         from org.brownell.xml import DomBuilder
+
         return Document(DomBuilder.createDocument(source))
 
-class IndelvDomImplementation(BaseDomImplementation):
 
+class IndelvDomImplementation(BaseDomImplementation):
     def createDocument(self):
         from com.indelv.dom import DOMImpl
+
         return Document(DOMImpl.createNewDocument())
 
     def _parse_from_source(self, source):
         from com.indelv.dom.util import XMLReader
         from org.xml.sax import InputSource
+
         return Document(XMLReader.parseDocument(InputSource(source)))
 
-class SxpDomImplementation(BaseDomImplementation):
 
+class SxpDomImplementation(BaseDomImplementation):
     def createDocument(self):
         from fr.loria.xml import DOMFactory
+
         return Document(DOMFactory().createDocument())
 
     def _parse_from_source(self, source):
         from fr.loria.xml import DocumentLoader
+
         loader = DocumentLoader()
 
         if type(source) == type(""):
             doc = loader.loadDocument(source)
-        elif source.getCharacterStream() != None:
+        elif source.getCharacterStream() is not None:
             doc = loader.loadDocument(source.getCharacterStream())
-        elif source.getByteStream() != None:
+        elif source.getByteStream() is not None:
             doc = loader.loadDocument(source.getByteStream())
-        elif source.getSystemId() != None:
+        elif source.getSystemId() is not None:
             doc = loader.loadDocument(source.getSystemId())
 
         return Document(doc)
 
-class OpenXmlDomImplementation(BaseDomImplementation):
 
+class OpenXmlDomImplementation(BaseDomImplementation):
     def createDocument(self):
         from org.openxml.dom import DocumentImpl
+
         return Document(DocumentImpl())
 
     def _parse_from_source(self, source):
@@ -135,7 +148,7 @@ def filetourl(file):
     file = File(file).getAbsolutePath()
     sep = System.getProperty("file.separator")
 
-    if sep != None and len(sep) == 1:
+    if sep is not None and len(sep) == 1:
         file = file.replace(sep[0], '/')
 
     if len(file) > 0 and file[0] != '/':
@@ -143,26 +156,27 @@ def filetourl(file):
 
     return URL('file', None, file).toString()
 
+
 def _wrap_node(node):
-    if node == None:
+    if node is None:
         return None
 
-    return NODE_CLASS_MAP[node.getNodeType()] (node)
+    return NODE_CLASS_MAP[node.getNodeType()](node)
 
 # ===== Constants
 
-ELEMENT_NODE                = 1
-ATTRIBUTE_NODE              = 2
-TEXT_NODE                   = 3
-CDATA_SECTION_NODE          = 4
-ENTITY_REFERENCE_NODE       = 5
-ENTITY_NODE                 = 6
+ELEMENT_NODE = 1
+ATTRIBUTE_NODE = 2
+TEXT_NODE = 3
+CDATA_SECTION_NODE = 4
+ENTITY_REFERENCE_NODE = 5
+ENTITY_NODE = 6
 PROCESSING_INSTRUCTION_NODE = 7
-COMMENT_NODE                = 8
-DOCUMENT_NODE               = 9
-DOCUMENT_TYPE_NODE          = 10
-DOCUMENT_FRAGMENT_NODE      = 11
-NOTATION_NODE               = 12
+COMMENT_NODE = 8
+DOCUMENT_NODE = 9
+DOCUMENT_TYPE_NODE = 10
+DOCUMENT_FRAGMENT_NODE = 11
+NOTATION_NODE = 12
 
 # ===== DOMException
 
@@ -174,13 +188,12 @@ except ImportError, e:
 # ===== DOMImplementation
 
 class DOMImplementation:
-
     def __init__(self, impl):
         self._impl = impl
 
     def hasFeature(self, feature, version):
-        if version == None or version == "1.0":
-            return string.lower(feature) == "xml" and \
+        if version is None or version == "1.0":
+            return string.lower(feature) == "xml" and\
                    self._impl.hasFeature(feature, version)
         else:
             return 0
@@ -191,10 +204,9 @@ class DOMImplementation:
 # ===== Node
 
 class Node:
-
     def __init__(self, impl):
         self.__dict__['_impl'] = impl
-        self.namespaceUri=None
+        self.namespaceUri = None
 
     # attributes
 
@@ -264,18 +276,17 @@ class Node:
     # python
 
     def __getattr__(self, name):
-        if name[ : 5] != '_get_':
-            return getattr(self, '_get_' + name) ()
+        if name[: 5] != '_get_':
+            return getattr(self, '_get_' + name)()
 
         raise AttributeError, name
 
     def __setattr__(self, name, value):
-        getattr(self, '_set_' + name) (value)
+        getattr(self, '_set_' + name)(value)
 
 # ===== Document
 
 class Document(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
@@ -331,21 +342,20 @@ class Document(Node):
 # ===== Element
 
 class Element(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
-        self.__dict__['_get_tagName']    = self._impl.getTagName
-        self.__dict__['getAttribute']    = self._impl.getAttribute
-        self.__dict__['setAttribute']    = self._impl.setAttribute
+        self.__dict__['_get_tagName'] = self._impl.getTagName
+        self.__dict__['getAttribute'] = self._impl.getAttribute
+        self.__dict__['setAttribute'] = self._impl.setAttribute
         self.__dict__['removeAttribute'] = self._impl.removeAttribute
-        self.__dict__['normalize']       = self._impl.normalize
+        self.__dict__['normalize'] = self._impl.normalize
 
     # methods
 
     def getAttributeNode(self, name):
         node = self._impl.getAttributeNode(name)
-        if node == None:
+        if node is None:
             return node
         else:
             return Attr(node)
@@ -362,7 +372,7 @@ class Element(Node):
     # python
 
     def __repr__(self):
-        return "<Element '%s' with %d attributes and %d children>" % \
+        return "<Element '%s' with %d attributes and %d children>" %\
                (self._impl.getTagName(),
                 self._impl.getAttributes().getLength(),
                 self._impl.getChildNodes().getLength())
@@ -370,37 +380,34 @@ class Element(Node):
 # ===== CharacterData
 
 class CharacterData(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
-        self.__dict__['_get_data']     = self._impl.getData
-        self.__dict__['_set_data']     = self._impl.setData
-        self.__dict__['_get_length']   = self._impl.getLength
+        self.__dict__['_get_data'] = self._impl.getData
+        self.__dict__['_set_data'] = self._impl.setData
+        self.__dict__['_get_length'] = self._impl.getLength
 
         self.__dict__['substringData'] = self._impl.substringData
-        self.__dict__['appendData']    = self._impl.appendData
-        self.__dict__['insertData']    = self._impl.insertData
-        self.__dict__['deleteData']    = self._impl.deleteData
-        self.__dict__['replaceData']   = self._impl.replaceData
+        self.__dict__['appendData'] = self._impl.appendData
+        self.__dict__['insertData'] = self._impl.insertData
+        self.__dict__['deleteData'] = self._impl.deleteData
+        self.__dict__['replaceData'] = self._impl.replaceData
 
 # ===== Comment
 
 class Comment(CharacterData):
-
     def __repr__(self):
         return "<Comment of length %d>" % self.getLength()
 
 # ===== ProcessingInstruction
 
 class ProcessingInstruction(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
         self.__dict__['_get_target'] = self._impl.getTarget
-        self.__dict__['_get_data']   = self._impl.getData
-        self.__dict__['_set_data']   = self._impl.setData
+        self.__dict__['_get_data'] = self._impl.getData
+        self.__dict__['_set_data'] = self._impl.setData
 
     def __repr__(self):
         return "<PI with target '%s'>" % self._impl.getTarget()
@@ -408,7 +415,6 @@ class ProcessingInstruction(Node):
 # ===== Text
 
 class Text(CharacterData):
-
     def splitText(self, offset):
         return Text(self._impl.splitText(offset))
 
@@ -418,21 +424,19 @@ class Text(CharacterData):
 # ===== CDATASection
 
 class CDATASection(Text):
-
     def __repr__(self):
         return "<CDATA section of length %d>" % self._impl.getLength()
 
 # ===== Attr
 
 class Attr(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
-        self.__dict__['_get_name']      = self._impl.getName
+        self.__dict__['_get_name'] = self._impl.getName
         self.__dict__['_get_specified'] = self._impl.getSpecified
-        self.__dict__['_get_value']     = self._impl.getValue
-        self.__dict__['_set_value']     = self._impl.setValue
+        self.__dict__['_get_value'] = self._impl.getValue
+        self.__dict__['_set_value'] = self._impl.setValue
 
     def __repr__(self):
         return "<Attr '%s'>" % self._impl.getName()
@@ -440,14 +444,12 @@ class Attr(Node):
 # ===== EntityReference
 
 class EntityReference(Node):
-
     def __repr__(self):
         return "<EntityReference '%s'>" % self.getNodeName()
 
 # ===== DocumentType
 
 class DocumentType(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
@@ -465,7 +467,6 @@ class DocumentType(Node):
 # ===== Notation
 
 class Notation(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
@@ -478,12 +479,11 @@ class Notation(Node):
 # ===== Entity
 
 class Entity(Node):
-
     def __init__(self, impl):
         Node.__init__(self, impl)
 
-        self.__dict__['_get_publicId']     = self._impl.getPublicId
-        self.__dict__['_get_systemId']     = self._impl.getSystemId
+        self.__dict__['_get_publicId'] = self._impl.getPublicId
+        self.__dict__['_get_systemId'] = self._impl.getSystemId
         self.__dict__['_get_notationName'] = self._impl.getNotationName
 
     def __repr__(self):
@@ -492,20 +492,18 @@ class Entity(Node):
 # ===== DocumentFragment
 
 class DocumentFragment(Node):
-
     def __repr__(self):
         return "<DocumentFragment>"
 
 # ===== NodeList
 
 class NodeList:
-
     def __init__(self, impl):
         self._impl = impl
 
-        self.__dict__['__len__']     = self._impl.getLength
+        self.__dict__['__len__'] = self._impl.getLength
         self.__dict__['_get_length'] = self._impl.getLength
-        self.__dict__['item']        = self._impl.item
+        self.__dict__['item'] = self._impl.item
 
     # Python list methods
 
@@ -514,7 +512,7 @@ class NodeList:
             ix = len(self) + ix
 
         node = self._impl.item(ix)
-        if node == None:
+        if node is None:
             raise IndexError, ix
         else:
             return _wrap_node(node)
@@ -584,12 +582,11 @@ class NodeList:
 # ===== NamedNodeMap
 
 class NamedNodeMap:
-
     def __init__(self, impl):
         self._impl = impl
 
         self.__dict__['_get_length'] = self._impl.getLength
-        self.__dict__['__len__']     = self._impl.getLength
+        self.__dict__['__len__'] = self._impl.getLength
 
     # methods
 
@@ -615,7 +612,7 @@ class NamedNodeMap:
         else:
             return _wrap_node(node)
 
-    def get(self, key, alternative = None):
+    def get(self, key, alternative=None):
         node = self._impl.getNamedItem(key)
         if node is None:
             return alternative
@@ -623,7 +620,7 @@ class NamedNodeMap:
             return _wrap_node(node)
 
     def has_key(self, key):
-        return self._impl.getNamedItem(key) != None
+        return self._impl.getNamedItem(key) is not None
 
     def items(self):
         list = []
@@ -661,19 +658,19 @@ class NamedNodeMap:
 # ===== Various stuff
 
 NODE_CLASS_MAP = {
-    ELEMENT_NODE : Element,
-    ATTRIBUTE_NODE : Attr,
-    TEXT_NODE : Text,
-    CDATA_SECTION_NODE : CDATASection,
-    ENTITY_REFERENCE_NODE : EntityReference,
-    ENTITY_NODE : Entity,
-    PROCESSING_INSTRUCTION_NODE : ProcessingInstruction,
-    COMMENT_NODE : Comment,
-    DOCUMENT_NODE : Document,
-    DOCUMENT_TYPE_NODE : DocumentType,
-    DOCUMENT_FRAGMENT_NODE : DocumentFragment,
-    NOTATION_NODE : Notation
-    }
+    ELEMENT_NODE: Element,
+    ATTRIBUTE_NODE: Attr,
+    TEXT_NODE: Text,
+    CDATA_SECTION_NODE: CDATASection,
+    ENTITY_REFERENCE_NODE: EntityReference,
+    ENTITY_NODE: Entity,
+    PROCESSING_INSTRUCTION_NODE: ProcessingInstruction,
+    COMMENT_NODE: Comment,
+    DOCUMENT_NODE: Document,
+    DOCUMENT_TYPE_NODE: DocumentType,
+    DOCUMENT_FRAGMENT_NODE: DocumentFragment,
+    NOTATION_NODE: Notation
+}
 
 # ===== Self-test
 

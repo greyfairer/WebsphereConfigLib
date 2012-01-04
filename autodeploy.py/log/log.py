@@ -20,99 +20,109 @@
 
 import sys
 from java.lang import Runtime
+
 DEBUG_ = 5
 VERBOSE_ = 4
 INFO_ = 3
 MAJOR_ = 2
 WARNING_ = 1
 ERROR_ = 0
-class LogConfig:
-    logLevel=INFO_
-    syslogTag="AutoDeploy"
-    syslogFacility="local3"
-    errors = []
-    warnings = []    
 
-def checkErrorsWarnings ( level, message ):
-        if (( level == ERROR_ ) ):
-                message = "ERROR: "+message
-                LogConfig.errors.append(message)
-        elif (( level == WARNING_ ) ):
-                message = "WARNING: "+message
-                LogConfig.warnings.append(message)
+class LogConfig:
+    logLevel = INFO_
+    syslogTag = "AutoDeploy"
+    syslogFacility = "local3"
+    errors = []
+    warnings = []
+
+
+def checkErrorsWarnings( level, message ):
+    if level == ERROR_:
+        message = "ERROR: " + message
+        LogConfig.errors.append(message)
+    elif level == WARNING_:
+        message = "WARNING: " + message
+        LogConfig.warnings.append(message)
         #endIf
-        return message
+    return message
+
 #endDef
 def syslog( level, message ):
     try:
-        ps = Runtime.getRuntime().exec(['logger','-p','%s.%s'%(LogConfig.syslogFacility, level), '-t', LogConfig.syslogTag, message])
+        ps = Runtime.getRuntime().exec(['logger', '-p', '%s.%s' % (LogConfig.syslogFacility, level), '-t', LogConfig.syslogTag, message])
         return ps.waitFor()
     except:
         log(INFO_, level + " " + message)
         return 0
+
 #    return 0
 
-def log ( level, message ):
-        if (( level <= LogConfig.logLevel ) ):
-                checkErrorsWarnings(level, message )
-                if (( LogConfig.logLevel != DEBUG_ ) ):
-                        if ( level == ERROR_ ):
-                                print "ERROR: " + message
-                        elif ( level == WARNING_ ):
-                                print "WARNING: " + message
-                        else:
-                                print message
-                        #endElse
-                else:
-                        if ( level == ERROR_ ):
-                                print ".E ###ERROR### "+message
-                        elif ( level == WARNING_ ):
-                                print "..W ###WARNING### "+message
-                        elif ( level == MAJOR_ ):
-                                print "...M "+message
-                        elif ( level == INFO_ ):
-                                print "....I "+message
-                        elif ( level == VERBOSE_ ):
-                                print ".....V "+message
-                        elif ( level == DEBUG_ ):
-                                print "......D "+message
-                        else:
-                                print "???????? "+message
-                        #endElse
+def log( level, message ):
+    if level <= LogConfig.logLevel:
+        checkErrorsWarnings(level, message)
+        if LogConfig.logLevel != DEBUG_:
+            if level == ERROR_:
+                print "ERROR: " + message
+            elif level == WARNING_:
+                print "WARNING: " + message
+            else:
+                print message
                 #endElse
-        #endIf
+        else:
+            if level == ERROR_:
+                print ".E ###ERROR### " + message
+            elif level == WARNING_:
+                print "..W ###WARNING### " + message
+            elif level == MAJOR_:
+                print "...M " + message
+            elif level == INFO_:
+                print "....I " + message
+            elif level == VERBOSE_:
+                print ".....V " + message
+            elif level == DEBUG_:
+                print "......D " + message
+            else:
+                print "???????? " + message
+                #endElse
+                #endElse
+                #endIf
+
 #endDef
 
-def fail ( msg ):
-        msg = "FAILURE: "+msg
-        debugHighlight(ERROR_, msg )
+def fail( msg ):
+    msg = "FAILURE: " + msg
+    debugHighlight(ERROR_, msg)
+
 #endDef
 
-def debugHighlight ( level, message ):
-        message = checkErrorsWarnings(level, message )
-        if ( level <= LogConfig.logLevel ):
-                ##puts ""
-                print "#######################################################################"
-                print message
-                print "#######################################################################"
-                ##puts ""
+def debugHighlight( level, message ):
+    message = checkErrorsWarnings(level, message)
+    if level <= LogConfig.logLevel:
+        ##puts ""
+        print "#######################################################################"
+        print message
+        print "#######################################################################"
+        ##puts ""
         #endIf
+
 #endDef
 
-def highlight ( level, message ):
-        message = checkErrorsWarnings(level, message )
-        if ( level <= LogConfig.logLevel ):
-                print "======================================================================="
-                print message
-                print "======================================================================="
+def highlight( level, message ):
+    message = checkErrorsWarnings(level, message)
+    if level <= LogConfig.logLevel:
+        print "======================================================================="
+        print message
+        print "======================================================================="
         #endIf
+
 #endDef
 
-def lowlight ( level, message ):
-        message = checkErrorsWarnings(level, message )
-        if ( level <= LogConfig.logLevel ):
-                print "-----------------------------------------------------------------------"
-                print message
-                print "-----------------------------------------------------------------------"
+def lowlight( level, message ):
+    message = checkErrorsWarnings(level, message)
+    if level <= LogConfig.logLevel:
+        print "-----------------------------------------------------------------------"
+        print message
+        print "-----------------------------------------------------------------------"
         #endIf
+
 #endDef

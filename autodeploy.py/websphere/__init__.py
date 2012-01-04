@@ -7,7 +7,7 @@ class WebSphere:
     AdminControl = AdminControlClient.getInstance()
     AdminApp = AdminAppClient.getInstance()
     AdminConfig = AdminConfigClient.getInstance()
-    
+
 Globals.wsadminCell = WebSphere.AdminControl.getCell()
 
 def printInformation():
@@ -25,14 +25,14 @@ def printInformation():
 
     wsadminHost = WebSphere.AdminControl.getHost()
     wsadminPort = WebSphere.AdminControl.getPort()
-    if (wsadminType != "DEPLOYMENT_MANAGER"):
+    if wsadminType != "DEPLOYMENT_MANAGER":
         fail(" currently only tested for AppServers connected to NetworkDeployment DeploymentManager")
-    #endIf
-    
-    if (wsadminConn != "SOAP"):
+        #endIf
+
+    if wsadminConn != "SOAP":
         fail(" currently only tested for AppServers connected using type=SOAP")
-    #endIf
-    
+        #endIf
+
     log(MAJOR_, ": WSADMIN: AdminType=" + wsadminType)
     log(MAJOR_, ": WSADMIN: AdminVers=" + wsadminVers)
     log(MAJOR_, ": WSADMIN: ServrVers=" + serverVers)

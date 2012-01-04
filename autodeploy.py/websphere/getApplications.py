@@ -15,9 +15,7 @@
 # 2.0 (10feb2006) initial Jython version
 # 1.1 (17nov2004) initial shipped version
 #
-from log.log import fail, INFO_, log, MAJOR_, VERBOSE_, ERROR_, DEBUG_
-from websphere import WebSphere
-from websphere.Definitions import false, true, wsadminToList
+from log.log import fail
 import applicationModel
 import glob
 import os
@@ -25,22 +23,22 @@ import sys
 import xml
 
 def getApplications(distDir, pattern="*.xml"):
-    if (os.path.isdir(distDir) == 0):
-            msg = "readDistributionDirectory: ERROR: is not a directory, distDir="+distDir
-            fail(msg)
-    if (os.path.exists(distDir) == 0):
-        msg = "readDistributionDirectory: ERROR: does not exist, distDir="+distDir
+    if not os.path.isdir(distDir):
+        msg = "readDistributionDirectory: ERROR: is not a directory, distDir=" + distDir
         fail(msg)
-    files = glob.glob(distDir+"/"+pattern)
+    if not os.path.exists(distDir):
+        msg = "readDistributionDirectory: ERROR: does not exist, distDir=" + distDir
+        fail(msg)
+    files = glob.glob(distDir + "/" + pattern)
     applications = {}
     impl = xml.dom.javadom.XercesDomImplementation()
     for file in files:
         dom = impl.buildDocumentFile(file)
         model = applicationModel.parseApplication(dom)
         model.configFile = file
-        applications[model.name] =model
+        applications[model.name] = model
     extrafiles = glob.glob(distDir + "/*.extraxml")
     for extrafile in extrafiles:
         extradom = impl.buildDocumentFile(extrafile)
-        applicationModel.addExtra(applications,extradom)
+        applicationModel.addExtra(applications, extradom)
     return applications.values()

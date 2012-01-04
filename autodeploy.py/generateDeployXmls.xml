@@ -5,131 +5,146 @@
  *
 -->
 <project name="generateDeployXmls" default="testurls" basedir=".">
-	<property environment="env"/>
-	<condition property="deployBaseDir" value="${env.DEPLOY_BASEDIR}" else="/var/MLEwsadmin">
-		<isset property="env.DEPLOY_BASEDIR" />
-	</condition>
+    <property environment="env"/>
+    <condition property="deployBaseDir" value="${env.DEPLOY_BASEDIR}" else="/var/MLEwsadmin">
+        <isset property="env.DEPLOY_BASEDIR"/>
+    </condition>
 
-	<property name="inputDir" value="${deployBaseDir}/ears" />
-	<property name="tempDir" value="${deployBaseDir}/tmp" />
-	<property name="outputDir" value="${deployBaseDir}/DeployNow" />
-	<property name="httpServer" value="mappsacc.mle.mazdaeur.com" />
+    <property name="inputDir" value="${deployBaseDir}/ears"/>
+    <property name="tempDir" value="${deployBaseDir}/tmp"/>
+    <property name="outputDir" value="${deployBaseDir}/DeployNow"/>
+    <property name="httpServer" value="mappsacc.mle.mazdaeur.com"/>
 
-	<property name="wasroot" value="/opt/IBM/WebSphere/AppServer" />
-	<property name="host" value="localhost" />
-	<property name="port" value="8879" />
-	
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<pathelement location="./ant-contrib-1.0b3.jar" />
-		</classpath>
-	</taskdef>
-	<taskdef name="wsValidateModule" classname="com.ibm.websphere.ant.tasks.ModuleValidator"/>
-	<taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin" />
-	
-	<target name="parse">
-		<echo>${ant.home}</echo>
-		<fileset dir="${inputDir}" includes="*/*.ear" id="earfiles" />
-		<property name="ears" refid="earfiles" />
-		<echo message="${ears}" />
-		<foreach param="fileName" list="${ears}" delimiter=";" target="processEar" >
-		</foreach>
-		<fileset dir="${inputDir}" includes="*.ear" id="earfiles2" />
-		<property name="ears2" refid="earfiles2" />
-		<echo message="${ears2}" />
-		<foreach param="fileName" list="${ears2}" delimiter=";" target="processEar" >
-		</foreach>
-	</target>
-	<target name="generate" depends="parse">
-		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython" script="updateApplicationXMLs.py">
-			<arg value="${outputDir}" />
-		</wsAdmin>
-		<delete>
-			<fileset dir="${outputDir}" includes="*.in"/>
-		</delete>
-	</target>
-	<target name="testurls" depends="generate">
-		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython" script="testUrls.py">
-			<arg value="${outputDir}" />
-			<arg value="*.xml" />
-		</wsAdmin>
-	</target>
+    <property name="wasroot" value="/opt/IBM/WebSphere/AppServer"/>
+    <property name="host" value="localhost"/>
+    <property name="port" value="8879"/>
 
-	<target name="processEar">
-		<echo>EAR filename ${fileName}</echo>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="./ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+    <taskdef name="wsValidateModule" classname="com.ibm.websphere.ant.tasks.ModuleValidator"/>
+    <taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin"/>
 
-		<trycatch property="exception">
-			<try>
-				<mkdir dir="${tempDir}/${fileName}" />
+    <target name="parse">
+        <echo>${ant.home}</echo>
+        <fileset dir="${inputDir}" includes="*/*.ear" id="earfiles"/>
+        <property name="ears" refid="earfiles"/>
+        <echo message="${ears}"/>
+        <foreach param="fileName" list="${ears}" delimiter=";" target="processEar">
+        </foreach>
+        <fileset dir="${inputDir}" includes="*.ear" id="earfiles2"/>
+        <property name="ears2" refid="earfiles2"/>
+        <echo message="${ears2}"/>
+        <foreach param="fileName" list="${ears2}" delimiter=";" target="processEar">
+        </foreach>
+    </target>
+    <target name="generate" depends="parse">
+        <wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython"
+                 script="updateApplicationXMLs.py">
+            <arg value="${outputDir}"/>
+        </wsAdmin>
+        <delete>
+            <fileset dir="${outputDir}" includes="*.in"/>
+        </delete>
+    </target>
+    <target name="testurls" depends="generate">
+        <wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython" script="testUrls.py">
+            <arg value="${outputDir}"/>
+            <arg value="*.xml"/>
+        </wsAdmin>
+    </target>
 
-				<unjar src="${inputDir}/${fileName}" dest="${tempDir}/${fileName}">
-					<patternset includes="META-INF/application.xml,META-INF/MANIFEST.MF" />
-				</unjar>
+    <target name="processEar">
+        <echo>EAR filename ${fileName}</echo>
 
-				<xmlproperty file="${tempDir}/${fileName}/META-INF/application.xml" prefix="applicationXml">
-					<xmlcatalog>
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" location="application_1_3.dtd" />
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" location="application_1_2.dtd" />
-					</xmlcatalog>
-				</xmlproperty>
-				<property file="${tempDir}/${fileName}/META-INF/MANIFEST.MF" prefix="manifestMf." />
-				<condition property="earVersion" value="${manifestMf.Implementation-Version}">
-					<isset property="manifestMf.Implementation-Version" />
-				</condition>
-				<propertyregex property="earVersion" override="no" input="${fileName}" regexp=".*([0-9]{3}\.[0-9]\.[0-9]\.[0-9])\.ear" select="\1" defaultvalue="1.0" />
-				<propertyregex property="serviceCall" override="no" input="${fileName}" regexp="(.*)[/\\].*\.ear" select="\1" defaultvalue="Unknown" />
-				<echo>ear version="${earVersion}"</echo>
-				<echo>service call="${serviceCall}"</echo>
-				
-				<echo>generating ${outputDir}/${applicationXml.application.display-name}-${earVersion}.xml</echo>
-				<xslt in="${tempDir}/${fileName}/META-INF/application.xml" out="${outputDir}/${applicationXml.application.display-name}-${earVersion}.xml.in" style="deployConfigTemplate.xslt">
-					<param name="earFileName" expression="${inputDir}/${fileName}" />
-					<param name="version" expression="${earVersion}" />
-					<param name="serviceCall" expression="${serviceCall}" />					
-					<param name="httpServer" expression="${httpServer}"/>
-					<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
-					<xmlcatalog>
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" location="application_1_3.dtd" />
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" location="application_1_2.dtd" />
-					</xmlcatalog>
-				</xslt>
-				<delete quiet="true">
-					<fileset dir="${outputDir}" includes="${applicationXml.application.display-name}-${earVersion}.xml.err"/>
-				</delete>
-			</try>
-			<catch>
-				<echo>FAIL: ${exception}</echo>
-				<propertyregex property="earVersion" override="no" input="${fileName}" regexp="(.*)([0-9]{3}\.[0-9]\.[0-9]\.[0-9])\.ear" select="\2" defaultvalue="1.0" />
-				<propertyregex property="outputFileName" input="${fileName}" regexp="(.*)\.ear" select="\1" defaultvalue="dummy" />
-				<echo>generating ${outputDir}/${outputFileName}.xml.err</echo>
-				<condition property="inputFile" value="${tempDir}/${fileName}/META-INF/application.xml" else="deployConfigTemplate.xslt">
-					<available file="${tempDir}/${fileName}/META-INF/application.xml" />
-				</condition>
-				<xslt in="${inputFile}" out="${outputDir}/${outputFileName}.xml.err" style="deployConfigTemplate.xslt">
-					<param name="earFileName" expression="${inputDir}/${fileName}" />
-					<param name="version" expression="${earVersion}" />
-					<param name="comment" expression="${exception}"/>
-					<param name="httpServer" expression="${httpServer}"/>
-					<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
-					<xmlcatalog>
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" location="application_1_3.dtd" />
-						<dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" location="application_1_2.dtd" />
-					</xmlcatalog>
-				</xslt>
-			</catch>
-		</trycatch>
-	</target>
+        <trycatch property="exception">
+            <try>
+                <mkdir dir="${tempDir}/${fileName}"/>
 
-	<target name="validate">
-		<echo>${ant.home}</echo>
-		<fileset dir="${inputDir}" includes="*.ear" id="earfiles" />
-		<property name="ears" refid="earfiles" />
-		<echo message="${ears}" />
-		<foreach param="fileName" list="${ears}" delimiter=";" target="validateEar" >
-		</foreach>
-	</target>
-	<target name="validateEar">
-		<wsValidateModule src="${inputDir}/${fileName}"/>
-	</target>
-	
+                <unjar src="${inputDir}/${fileName}" dest="${tempDir}/${fileName}">
+                    <patternset includes="META-INF/application.xml,META-INF/MANIFEST.MF"/>
+                </unjar>
+
+                <xmlproperty file="${tempDir}/${fileName}/META-INF/application.xml" prefix="applicationXml">
+                    <xmlcatalog>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+                             location="application_1_3.dtd"/>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"
+                             location="application_1_2.dtd"/>
+                    </xmlcatalog>
+                </xmlproperty>
+                <property file="${tempDir}/${fileName}/META-INF/MANIFEST.MF" prefix="manifestMf."/>
+                <condition property="earVersion" value="${manifestMf.Implementation-Version}">
+                    <isset property="manifestMf.Implementation-Version"/>
+                </condition>
+                <propertyregex property="earVersion" override="no" input="${fileName}"
+                               regexp=".*([0-9]{3}\.[0-9]\.[0-9]\.[0-9])\.ear" select="\1" defaultvalue="1.0"/>
+                <propertyregex property="serviceCall" override="no" input="${fileName}" regexp="(.*)[/\\].*\.ear"
+                               select="\1" defaultvalue="Unknown"/>
+                <echo>ear version="${earVersion}"</echo>
+                <echo>service call="${serviceCall}"</echo>
+
+                <echo>generating ${outputDir}/${applicationXml.application.display-name}-${earVersion}.xml</echo>
+                <xslt in="${tempDir}/${fileName}/META-INF/application.xml"
+                      out="${outputDir}/${applicationXml.application.display-name}-${earVersion}.xml.in"
+                      style="deployConfigTemplate.xslt">
+                    <param name="earFileName" expression="${inputDir}/${fileName}"/>
+                    <param name="version" expression="${earVersion}"/>
+                    <param name="serviceCall" expression="${serviceCall}"/>
+                    <param name="httpServer" expression="${httpServer}"/>
+                    <outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+                    <xmlcatalog>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+                             location="application_1_3.dtd"/>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"
+                             location="application_1_2.dtd"/>
+                    </xmlcatalog>
+                </xslt>
+                <delete quiet="true">
+                    <fileset dir="${outputDir}"
+                             includes="${applicationXml.application.display-name}-${earVersion}.xml.err"/>
+                </delete>
+            </try>
+            <catch>
+                <echo>FAIL: ${exception}</echo>
+                <propertyregex property="earVersion" override="no" input="${fileName}"
+                               regexp="(.*)([0-9]{3}\.[0-9]\.[0-9]\.[0-9])\.ear" select="\2" defaultvalue="1.0"/>
+                <propertyregex property="outputFileName" input="${fileName}" regexp="(.*)\.ear" select="\1"
+                               defaultvalue="dummy"/>
+                <echo>generating ${outputDir}/${outputFileName}.xml.err</echo>
+                <condition property="inputFile" value="${tempDir}/${fileName}/META-INF/application.xml"
+                           else="deployConfigTemplate.xslt">
+                    <available file="${tempDir}/${fileName}/META-INF/application.xml"/>
+                </condition>
+                <xslt in="${inputFile}" out="${outputDir}/${outputFileName}.xml.err" style="deployConfigTemplate.xslt">
+                    <param name="earFileName" expression="${inputDir}/${fileName}"/>
+                    <param name="version" expression="${earVersion}"/>
+                    <param name="comment" expression="${exception}"/>
+                    <param name="httpServer" expression="${httpServer}"/>
+                    <outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+                    <xmlcatalog>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+                             location="application_1_3.dtd"/>
+                        <dtd publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"
+                             location="application_1_2.dtd"/>
+                    </xmlcatalog>
+                </xslt>
+            </catch>
+        </trycatch>
+    </target>
+
+    <target name="validate">
+        <echo>${ant.home}</echo>
+        <fileset dir="${inputDir}" includes="*.ear" id="earfiles"/>
+        <property name="ears" refid="earfiles"/>
+        <echo message="${ears}"/>
+        <foreach param="fileName" list="${ears}" delimiter=";" target="validateEar">
+        </foreach>
+    </target>
+    <target name="validateEar">
+        <wsValidateModule src="${inputDir}/${fileName}"/>
+    </target>
+
 </project>

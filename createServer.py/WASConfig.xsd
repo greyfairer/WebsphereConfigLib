@@ -1,1249 +1,1450 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--Created with Liquid XML Studio - FREE Community Edition 7.0.5.906 (http://www.liquid-technologies.com)-->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="ServerCluster">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="Node">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element minOccurs="0" name="Server">
-                  <xs:complexType>
-                    <xs:sequence>
-                      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerPort">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ServerCluster">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Node">
                         <xs:complexType>
-                          <xs:attribute name="endPointName" type="xs:string" use="required" />
-                          <xs:attribute name="host" type="xs:string" use="required" />
-                          <xs:attribute name="port" type="xs:string" use="required" />
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="Server">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerPort">
+                                                <xs:complexType>
+                                                    <xs:attribute name="endPointName" type="xs:string" use="required"/>
+                                                    <xs:attribute name="host" type="xs:string" use="required"/>
+                                                    <xs:attribute name="port" type="xs:string" use="required"/>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="name" type="xs:string" use="required"/>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="name" type="xs:string" use="required"/>
                         </xs:complexType>
-                      </xs:element>
-                    </xs:sequence>
-                    <xs:attribute name="name" type="xs:string" use="required" />
-                  </xs:complexType>
-                </xs:element>
-              </xs:sequence>
-              <xs:attribute name="name" type="xs:string" use="required" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" name="ClusterConfig">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element minOccurs="0" name="Resources">
-                  <xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ClusterConfig">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="Resources">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                <xs:element name="MailProvider" type="MailProvider"/>
+                                                <xs:element name="URLProvider" type="URLProvider"/>
+                                                <xs:element name="WorkManagerProvider" type="WorkManagerProvider"/>
+                                                <xs:element name="CacheProvider" type="CacheProvider"/>
+                                                <xs:element name="NameBindings" type="NameBindings"/>
+                                                <xs:element name="JDBCProvider" type="JDBCProvider"/>
+                                                <xs:element name="JMSProvider" type="JMSProvider"/>
+                                                <xs:element name="SIBMessagingEngine" type="SIBMessagingEngine"/>
+                                                <xs:element name="VariableMap" type="VariableMap"/>
+                                                <xs:element name="SharedLibraries" type="SharedLibraries"/>
+                                            </xs:choice>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerConfig">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="Resources">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                <xs:element name="MailProvider" type="MailProvider"/>
+                                                <xs:element name="URLProvider" type="URLProvider"/>
+                                                <xs:element name="WorkManagerProvider" type="WorkManagerProvider"/>
+                                                <xs:element name="CacheProvider" type="CacheProvider"/>
+                                                <xs:element name="NameBindings" type="NameBindings"/>
+                                                <xs:element name="JDBCProvider" type="JDBCProvider"/>
+                                                <xs:element name="JMSProvider" type="JMSProvider"/>
+                                                <xs:element name="SIBMessagingEngine" type="SIBMessagingEngine"/>
+                                                <xs:element name="VariableMap" type="VariableMap"/>
+                                                <xs:element name="SharedLibraries" type="SharedLibraries"/>
+                                            </xs:choice>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Services">
+                                    <xs:complexType>
+                                        <xs:all>
+                                            <xs:element minOccurs="0" name="SessionManager" type="SessionManager"/>
+                                            <xs:element minOccurs="0" name="TransactionService"
+                                                        type="TransactionService"/>
+                                            <xs:element minOccurs="0" name="PMIService" type="PMIService"/>
+                                            <xs:element minOccurs="0" name="JavaVirtualMachine"
+                                                        type="JavaVirtualMachine"/>
+                                            <xs:element minOccurs="0" name="WebContainer" type="WebContainer"/>
+                                            <xs:element minOccurs="0" name="DynamicCache" type="DynamicCache"/>
+                                            <xs:element minOccurs="0" name="ApplicationServer"
+                                                        type="ApplicationServer"/>
+                                            <xs:element minOccurs="0" name="Chain" type="Chain"/>
+                                            <xs:element minOccurs="0" name="MessageListenerService"
+                                                        type="MessageListenerService"/>
+                                        </xs:all>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Attributes">
+                                    <xs:complexType>
+                                        <xs:all>
+                                            <xs:element minOccurs="0" name="errorStreamRedirect">
+                                                <xs:annotation>
+                                                    <xs:documentation>Logging of System Error Output</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:attribute name="baseHour" type="xs:string" use="optional"/>
+                                                    <xs:attribute name="maxNumberOfBackupFiles" type="xs:string"
+                                                                  use="optional"/>
+                                                    <xs:attribute name="rolloverPeriod" type="xs:string"
+                                                                  use="optional"/>
+                                                    <xs:attribute name="rolloverType" type="xs:string" use="optional"/>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="outputStreamRedirect">
+                                                <xs:annotation>
+                                                    <xs:documentation>Logging of System Output</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:attribute name="baseHour" type="xs:string" use="optional"/>
+                                                    <xs:attribute name="maxNumberOfBackupFiles" type="xs:string"
+                                                                  use="optional"/>
+                                                    <xs:attribute name="rolloverPeriod" type="xs:string"
+                                                                  use="optional"/>
+                                                    <xs:attribute name="rolloverType" type="xs:string" use="optional"/>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:all>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="match" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" ref="CellConfig"/>
+                    <xs:element minOccurs="0" ref="NodeConfig"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="MailProvider">
+        <xs:annotation>
+            <xs:documentation>Configuration for the JavaMail provider that supplies the JavaMail implementation used to
+                create JavaMail sessions.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="MailSession">
+                <xs:annotation>
+                    <xs:documentation>Configurations for JavaMail support.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
                     <xs:sequence>
-                      <xs:choice minOccurs="0" maxOccurs="unbounded">
-                        <xs:element name="MailProvider" type="MailProvider" />
-                        <xs:element name="URLProvider" type="URLProvider" />
-                        <xs:element name="WorkManagerProvider" type="WorkManagerProvider" />
-                        <xs:element name="CacheProvider" type="CacheProvider" />
-                        <xs:element name="NameBindings" type="NameBindings" />
-                        <xs:element name="JDBCProvider" type="JDBCProvider" />
-                        <xs:element name="JMSProvider" type="JMSProvider" />
-                        <xs:element name="SIBMessagingEngine" type="SIBMessagingEngine" />
-                        <xs:element name="VariableMap" type="VariableMap" />
-                        <xs:element name="SharedLibraries" type="SharedLibraries" />
-                      </xs:choice>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" name="J2EEResourceProperty">
+                                        <xs:annotation>
+                                            <xs:documentation>Custom Properties</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:attribute name="name" type="xs:string" use="optional"/>
+                                            <xs:attribute name="value" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="mailFrom" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>This field will appear to recipient as "From" or "ReplyTo"
+                                                field.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
                     </xs:sequence>
-                  </xs:complexType>
-                </xs:element>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerConfig">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element minOccurs="0" name="Resources">
-                  <xs:complexType>
-                    <xs:sequence>
-                      <xs:choice minOccurs="0" maxOccurs="unbounded">
-                        <xs:element name="MailProvider" type="MailProvider" />
-                        <xs:element name="URLProvider" type="URLProvider" />
-                        <xs:element name="WorkManagerProvider" type="WorkManagerProvider" />
-                        <xs:element name="CacheProvider" type="CacheProvider" />
-                        <xs:element name="NameBindings" type="NameBindings" />
-                        <xs:element name="JDBCProvider" type="JDBCProvider" />
-                        <xs:element name="JMSProvider" type="JMSProvider" />
-                        <xs:element name="SIBMessagingEngine" type="SIBMessagingEngine" />
-                        <xs:element name="VariableMap" type="VariableMap" />
-                        <xs:element name="SharedLibraries" type="SharedLibraries" />
-                      </xs:choice>
-                    </xs:sequence>
-                  </xs:complexType>
-                </xs:element>
-                <xs:element minOccurs="0" name="Services">
-                  <xs:complexType>
-                    <xs:all>
-                      <xs:element minOccurs="0" name="SessionManager" type="SessionManager" />
-                      <xs:element minOccurs="0" name="TransactionService" type="TransactionService" />
-                      <xs:element minOccurs="0" name="PMIService" type="PMIService" />
-                      <xs:element minOccurs="0" name="JavaVirtualMachine" type="JavaVirtualMachine" />
-                      <xs:element minOccurs="0" name="WebContainer" type="WebContainer" />
-                      <xs:element minOccurs="0" name="DynamicCache" type="DynamicCache" />
-                      <xs:element minOccurs="0" name="ApplicationServer" type="ApplicationServer" />
-                      <xs:element minOccurs="0" name="Chain" type="Chain" />
-                      <xs:element minOccurs="0" name="MessageListenerService" type="MessageListenerService" />
-                    </xs:all>
-                  </xs:complexType>
-                </xs:element>
-                <xs:element minOccurs="0" name="Attributes">
-                  <xs:complexType>
-                    <xs:all>
-                      <xs:element minOccurs="0" name="errorStreamRedirect">
+                    <xs:attribute name="jndiName" type="xs:string" use="required">
                         <xs:annotation>
-                          <xs:documentation>Logging of System Error Output</xs:documentation>
+                            <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.
+                            </xs:documentation>
                         </xs:annotation>
-                        <xs:complexType>
-                          <xs:attribute name="baseHour" type="xs:string" use="optional" />
-                          <xs:attribute name="maxNumberOfBackupFiles" type="xs:string" use="optional" />
-                          <xs:attribute name="rolloverPeriod" type="xs:string" use="optional" />
-                          <xs:attribute name="rolloverType" type="xs:string" use="optional" />
-                        </xs:complexType>
-                      </xs:element>
-                      <xs:element minOccurs="0" name="outputStreamRedirect">
+                    </xs:attribute>
+                    <xs:attribute name="mailTransportHost" type="xs:string" use="optional">
                         <xs:annotation>
-                          <xs:documentation>Logging of System Output</xs:documentation>
+                            <xs:documentation>The server to which to connect when sending mail.</xs:documentation>
                         </xs:annotation>
-                        <xs:complexType>
-                          <xs:attribute name="baseHour" type="xs:string" use="optional" />
-                          <xs:attribute name="maxNumberOfBackupFiles" type="xs:string" use="optional" />
-                          <xs:attribute name="rolloverPeriod" type="xs:string" use="optional" />
-                          <xs:attribute name="rolloverType" type="xs:string" use="optional" />
-                        </xs:complexType>
-                      </xs:element>
-                    </xs:all>
-                  </xs:complexType>
-                </xs:element>
-              </xs:sequence>
-              <xs:attribute name="match" type="xs:string" use="required" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" ref="CellConfig" />
-          <xs:element minOccurs="0" ref="NodeConfig" />
-        </xs:choice>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required" />
+                    </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The required display name for the resource.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
     </xs:complexType>
-  </xs:element>
-  <xs:complexType name="MailProvider">
-    <xs:annotation>
-      <xs:documentation>Configuration for the JavaMail provider that supplies the JavaMail implementation used to create JavaMail sessions.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="MailSession">
+    <xs:complexType name="WorkManagerProvider">
         <xs:annotation>
-          <xs:documentation>Configurations for JavaMail support.</xs:documentation>
+            <xs:documentation>A built-in ResourceEnvEntry provider for defining Asynch Dispatcher Thread Pools which may
+                be bound to resource-env-refs of applications, so that customer code can retrieve these settings via a
+                java:comp/env JNDI name lookup.
+            </xs:documentation>
         </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:all>
-                  <xs:element minOccurs="0" name="J2EEResourceProperty">
-                    <xs:annotation>
-                      <xs:documentation>Custom Properties</xs:documentation>
-                    </xs:annotation>
-                    <xs:complexType>
-                      <xs:attribute name="name" type="xs:string" use="optional" />
-                      <xs:attribute name="value" type="xs:string" use="optional" />
-                    </xs:complexType>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="mailFrom" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>This field will appear to recipient as "From" or "ReplyTo" field.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                </xs:all>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-          <xs:attribute name="jndiName" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="mailTransportHost" type="xs:string" use="optional">
-            <xs:annotation>
-              <xs:documentation>The server to which to connect when sending mail.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="name" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required display name for the resource.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="WorkManagerProvider">
-    <xs:annotation>
-      <xs:documentation>A built-in ResourceEnvEntry provider for defining Asynch Dispatcher Thread Pools which may be bound to resource-env-refs of applications, so that customer code can retrieve these settings via a java:comp/env JNDI name lookup.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkManagerInfo">
-        <xs:annotation>
-          <xs:documentation>A Work Manager contains a pool of threads bound into JNDI.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:all>
-                  <xs:element minOccurs="0" default="0" name="minThreads" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>The minimum number of threads available in this Work Manager.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="2" name="maxThreads" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>The maximum number of threads available in this Work Manager.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="2" name="numAlarmThreads" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>Number of alarm threads for the Alarm manager. </xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="0" name="workReqQFullAction">
-                    <xs:annotation>
-                      <xs:documentation>Work request queue full action.Possible values: 0 - block; 1 - fail.</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="0" />
-                        <xs:enumeration value="1" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="workReqQSize" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>Specifies the size of the buffer that the Work Manager's thread pool uses to pull requests from. The total number of in-flight requests will be the sum of Max Threads and this wrok request size. If this value is not set, then the queue size is undefined.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="false" name="isDistributable">
-                    <xs:annotation>
-                      <xs:documentation>If false, Work started with this Work Manager will not be distributed to other cluster members. If true, Work may optionally execute remotely if the Work is distributable.
-</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="serviceNames" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>Specifies a list of services to make available to this work manager.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="true" name="isGrowable">
-                    <xs:annotation>
-                      <xs:documentation>Specifies whether the number of threads in this Work Manager can be increased.</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="description" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>An optional description of the resource.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="5" name="threadPriority" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>The priority of the threads available in this Work Manager</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="0" name="workTimeout" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>Specify the timeout value for a Work that is executing, Default value is 0 which means no work time out is enabled. The unit of the time is in milliseconds.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                </xs:all>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-          <xs:attribute name="jndiName" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="name" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required display name for the resource.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="NameBindings">
-    <xs:annotation>
-      <xs:documentation>Abstract base class for the subclasses EjbNameSpaceBinding, CORBAObjectNameSpaceBinding, IndirectLookupNameSpaceBinding, and StringNameSpaceBinding.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:choice>
-        <xs:element minOccurs="0" maxOccurs="unbounded" name="StringNameSpaceBinding">
-          <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="required">
-              <xs:annotation>
-                <xs:documentation>The administrative name for the binding.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="nameInNameSpace" type="xs:string" use="optional">
-              <xs:annotation>
-                <xs:documentation>This name is the binding name for the configured binding.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="stringToBind" type="xs:string" use="optional" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="unbounded" name="EjbNameSpaceBinding">
-          <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="optional">
-              <xs:annotation>
-                <xs:documentation>The administrative name for the binding.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="nameInNameSpace" type="xs:string" use="optional">
-              <xs:annotation>
-                <xs:documentation>This name is the binding name for the configured binding.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="ejbJndiName" type="xs:string" use="optional">
-              <xs:annotation>
-                <xs:documentation>The JNDI name of the deployed EJB. This is the EJB's JNDI name which is in the ejbBindings tag in the EJB's deployment descriptors--not the java:comp name.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="bindingLocation" use="required">
-              <xs:annotation>
-                <xs:documentation>Indicates whether the EJB is bound in a cluster or a single server.
-     data type: BindingLocationType 
-     default Value:   unspecified 
-     Allowed Values:  </xs:documentation>
-              </xs:annotation>
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:enumeration value="SERVERCLUSTER" />
-                  <xs:enumeration value="SINGLESERVER" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="applicationServerName" type="xs:string" use="required">
-              <xs:annotation>
-                <xs:documentation>The name of the cluster or non-clustered server in which the EJB is configured.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="applicationNodeName" type="xs:string" use="optional">
-              <xs:annotation>
-                <xs:documentation>The node name for the single server in which EJB application is running. This value applies only if the bindingLocation value is singleServer.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-          </xs:complexType>
-        </xs:element>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="CacheProvider">
-    <xs:annotation>
-      <xs:documentation>The Cache Provider manages Cache Instance resources.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjectCacheInstance">
-        <xs:annotation>
-          <xs:documentation>A Cache Instance is a location, in addition to the default shared Dynamic Cache, where any J2EE application can store, distribute, and share data. This gives application greater flexibility and greater tuning of the cache resources. The programming interface to access this cache instance is called DistributedMap. See the DistributedMap API documentation in the WebSphere javadoc for more information.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:all>
-                  <xs:element minOccurs="0" default="NONE" name="replicationType">
-                    <xs:annotation>
-                      <xs:documentation>pecifies the sharing policy of replicated objects across application servers. The value may be PUSH, PULL, PUSH_PULL or NONE, the default being NONE</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="PUSH" />
-                        <xs:enumeration value="PULL" />
-                        <xs:enumeration value="PUSH_PULL" />
-                        <xs:enumeration value="NONE" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="false" name="enableCacheReplication">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings" />
-                  <xs:element minOccurs="0" default="false" name="enableDiskOffload">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="false" name="useListenerContext">
-                    <xs:annotation>
-                      <xs:documentation>Set this value to true to have invalidation events fired to registered invalidation listeners using the listener's J2EE context.Applicable only to Object Cache Instances (not Servlet Cache Instances).</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="1" name="pushFrequency">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:integer">
-                        <xs:minInclusive value="0" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:element>
-                </xs:all>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-          <xs:attribute default="2000" name="cacheSize" type="xs:string">
-            <xs:annotation>
-              <xs:documentation>A positive integer defining the maximum number of entries the cache will hold. Values are usually in the thousands, with no set maximum or minimum.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="jndiName" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="name" type="xs:string" use="required">
-            <xs:annotation>
-              <xs:documentation>The required display name for the resource.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="JDBCProvider">
-    <xs:annotation>
-      <xs:documentation>Configuration for software that enables Java applications to connect to JDBC-compliant databases.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DataSource">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="ResourceProperties">
-              <xs:annotation>
-                <xs:documentation>This command step configures the resource properties that are required by the data source.</xs:documentation>
-              </xs:annotation>
-              <xs:complexType>
-                <xs:sequence>
-                  <xs:element minOccurs="0" name="J2EEResourceProperty">
-                    <xs:complexType>
-                      <xs:attribute name="name" use="optional">
-                        <xs:simpleType>
-                          <xs:restriction base="xs:string">
-                            <xs:enumeration value="URL" />
-                            <xs:enumeration value="databaseName" />
-                          </xs:restriction>
-                        </xs:simpleType>
-                      </xs:attribute>
-                      <xs:attribute name="type" type="xs:string" use="optional">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkManagerInfo">
+                <xs:annotation>
+                    <xs:documentation>A Work Manager contains a pool of threads bound into JNDI.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" default="0" name="minThreads" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The minimum number of threads available in this Work
+                                                Manager.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="2" name="maxThreads" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The maximum number of threads available in this Work
+                                                Manager.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="2" name="numAlarmThreads" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Number of alarm threads for the Alarm manager.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="0" name="workReqQFullAction">
+                                        <xs:annotation>
+                                            <xs:documentation>Work request queue full action.Possible values: 0 - block;
+                                                1 - fail.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="0"/>
+                                                <xs:enumeration value="1"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="workReqQSize" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Specifies the size of the buffer that the Work Manager's
+                                                thread pool uses to pull requests from. The total number of in-flight
+                                                requests will be the sum of Max Threads and this wrok request size. If
+                                                this value is not set, then the queue size is undefined.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="false" name="isDistributable">
+                                        <xs:annotation>
+                                            <xs:documentation>If false, Work started with this Work Manager will not be
+                                                distributed to other cluster members. If true, Work may optionally
+                                                execute remotely if the Work is distributable.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="serviceNames" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Specifies a list of services to make available to this
+                                                work manager.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="true" name="isGrowable">
+                                        <xs:annotation>
+                                            <xs:documentation>Specifies whether the number of threads in this Work
+                                                Manager can be increased.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="description" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional description of the resource.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="5" name="threadPriority" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The priority of the threads available in this Work Manager
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="0" name="workTimeout" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Specify the timeout value for a Work that is executing,
+                                                Default value is 0 which means no work time out is enabled. The unit of
+                                                the time is in milliseconds.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="jndiName" type="xs:string" use="required">
                         <xs:annotation>
-                          <xs:documentation>java.lang.String</xs:documentation>
+                            <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.
+                            </xs:documentation>
                         </xs:annotation>
-                      </xs:attribute>
-                      <xs:attribute name="value" type="xs:string" use="optional" />
+                    </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The required display name for the resource.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="NameBindings">
+        <xs:annotation>
+            <xs:documentation>Abstract base class for the subclasses EjbNameSpaceBinding, CORBAObjectNameSpaceBinding,
+                IndirectLookupNameSpaceBinding, and StringNameSpaceBinding.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="StringNameSpaceBinding">
+                    <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required">
+                            <xs:annotation>
+                                <xs:documentation>The administrative name for the binding.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="nameInNameSpace" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>This name is the binding name for the configured binding.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="stringToBind" type="xs:string" use="optional"/>
                     </xs:complexType>
-                  </xs:element>
-                </xs:sequence>
-              </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="EjbNameSpaceBinding">
+                    <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>The administrative name for the binding.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="nameInNameSpace" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>This name is the binding name for the configured binding.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="ejbJndiName" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>The JNDI name of the deployed EJB. This is the EJB's JNDI name which
+                                    is in the ejbBindings tag in the EJB's deployment descriptors--not the java:comp
+                                    name.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="bindingLocation" use="required">
+                            <xs:annotation>
+                                <xs:documentation>Indicates whether the EJB is bound in a cluster or a single server.
+                                    data type: BindingLocationType
+                                    default Value: unspecified
+                                    Allowed Values:
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="SERVERCLUSTER"/>
+                                    <xs:enumeration value="SINGLESERVER"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="applicationServerName" type="xs:string" use="required">
+                            <xs:annotation>
+                                <xs:documentation>The name of the cluster or non-clustered server in which the EJB is
+                                    configured.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="applicationNodeName" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>The node name for the single server in which EJB application is
+                                    running. This value applies only if the bindingLocation value is singleServer.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CacheProvider">
+        <xs:annotation>
+            <xs:documentation>The Cache Provider manages Cache Instance resources.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjectCacheInstance">
+                <xs:annotation>
+                    <xs:documentation>A Cache Instance is a location, in addition to the default shared Dynamic Cache,
+                        where any J2EE application can store, distribute, and share data. This gives application greater
+                        flexibility and greater tuning of the cache resources. The programming interface to access this
+                        cache instance is called DistributedMap. See the DistributedMap API documentation in the
+                        WebSphere javadoc for more information.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" default="NONE" name="replicationType">
+                                        <xs:annotation>
+                                            <xs:documentation>pecifies the sharing policy of replicated objects across
+                                                application servers. The value may be PUSH, PULL, PUSH_PULL or NONE, the
+                                                default being NONE
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="PUSH"/>
+                                                <xs:enumeration value="PULL"/>
+                                                <xs:enumeration value="PUSH_PULL"/>
+                                                <xs:enumeration value="NONE"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="false" name="enableCacheReplication">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings"/>
+                                    <xs:element minOccurs="0" default="false" name="enableDiskOffload">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="false" name="useListenerContext">
+                                        <xs:annotation>
+                                            <xs:documentation>Set this value to true to have invalidation events fired
+                                                to registered invalidation listeners using the listener's J2EE
+                                                context.Applicable only to Object Cache Instances (not Servlet Cache
+                                                Instances).
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="1" name="pushFrequency">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:integer">
+                                                <xs:minInclusive value="0"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute default="2000" name="cacheSize" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>A positive integer defining the maximum number of entries the cache will
+                                hold. Values are usually in the thousands, with no set maximum or minimum.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="jndiName" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The required display name for the resource.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:all>
-                  <xs:element minOccurs="0" name="authDataAlias" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>The alias used for database authentication at run time. This alias is only used when the application resource reference is using res-auth=Application.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="connectionPool" type="ConnectionPool">
-                    <xs:annotation>
-                      <xs:documentation>An optional set of connection pool settings. </xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" default="10" name="statementCacheSize " type="xs:integer">
-                    <xs:annotation>
-                      <xs:documentation>Number of free prepared statements per connection.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                </xs:all>
-              </xs:complexType>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="JDBCProvider">
+        <xs:annotation>
+            <xs:documentation>Configuration for software that enables Java applications to connect to JDBC-compliant
+                databases.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="DataSource">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ResourceProperties">
+                            <xs:annotation>
+                                <xs:documentation>This command step configures the resource properties that are required
+                                    by the data source.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="J2EEResourceProperty">
+                                        <xs:complexType>
+                                            <xs:attribute name="name" use="optional">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:enumeration value="URL"/>
+                                                        <xs:enumeration value="databaseName"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="type" type="xs:string" use="optional">
+                                                <xs:annotation>
+                                                    <xs:documentation>java.lang.String</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="value" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" name="authDataAlias" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The alias used for database authentication at run time.
+                                                This alias is only used when the application resource reference is using
+                                                res-auth=Application.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="connectionPool" type="ConnectionPool">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional set of connection pool settings.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" default="10" name="statementCacheSize " type="xs:integer">
+                                        <xs:annotation>
+                                            <xs:documentation>Number of free prepared statements per connection.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="description" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The description of the data source.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="datasourceHelperClassname" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The name of the DataStoreHelper implementation class that extends the
+                                capabilities of the selected JDBC driver implementation class to perform data-specific
+                                functions. WebSphere Application Server provides a set of DataStoreHelper implementation
+                                classes for each of the JDBC provider drivers it supports.
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="com.ibm.websphere.rsadapter.DB2DataStoreHelper"/>
+                                <xs:enumeration value="com.ibm.websphere.rsadapter.Oracle10gDataStoreHelper"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="jndiName" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The required display name for the resource.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
             </xs:element>
-          </xs:sequence>
-          <xs:attribute name="description" type="xs:string" use="optional">
+        </xs:sequence>
+        <xs:attribute name="databaseType" use="optional">
             <xs:annotation>
-              <xs:documentation>The description of the data source.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="datasourceHelperClassname" use="optional">
-            <xs:annotation>
-              <xs:documentation>The name of the DataStoreHelper implementation class that extends the capabilities of the selected JDBC driver implementation class to perform data-specific functions. WebSphere Application Server provides a set of DataStoreHelper implementation classes for each of the JDBC provider drivers it supports.</xs:documentation>
+                <xs:documentation>The type of database that will be used by the JDBC provider. For example, DB2, Derby,
+                    Informix, Oracle, and so on.
+                </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-              <xs:restriction base="xs:string">
-                <xs:enumeration value="com.ibm.websphere.rsadapter.DB2DataStoreHelper" />
-                <xs:enumeration value="com.ibm.websphere.rsadapter.Oracle10gDataStoreHelper" />
-              </xs:restriction>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Oracle"/>
+                    <xs:enumeration value="DB2"/>
+                    <xs:enumeration value="Derby"/>
+                </xs:restriction>
             </xs:simpleType>
-          </xs:attribute>
-          <xs:attribute name="jndiName" type="xs:string" use="optional">
+        </xs:attribute>
+        <xs:attribute name="providerType" use="optional">
             <xs:annotation>
-              <xs:documentation>The required JNDI name for the resource, including any naming subcontexts.</xs:documentation>
+                <xs:documentation>The JDBC provider type that will be used by the JDBC provider.</xs:documentation>
             </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="name" type="xs:string" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Oracle JDBC Driver"/>
+                    <xs:enumeration value="DB2 Legacy CLI-based Type 2 JDBC Driver (Deprecated)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="implementationType" use="optional">
             <xs:annotation>
-              <xs:documentation>The required display name for the resource.</xs:documentation>
+                <xs:documentation>The implementation type for this JDBC provider. Use Connection pool data source if
+                    your application runs in a single phase or a local transaction. Otherwise, use XA data source to run
+                    in a global transaction.
+                </xs:documentation>
             </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="databaseType" use="optional">
-      <xs:annotation>
-        <xs:documentation>The type of database that will be used by the JDBC provider. For example, DB2, Derby, Informix, Oracle, and so on. </xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Oracle" />
-          <xs:enumeration value="DB2" />
-          <xs:enumeration value="Derby" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="providerType" use="optional">
-      <xs:annotation>
-        <xs:documentation>The JDBC provider type that will be used by the JDBC provider.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Oracle JDBC Driver" />
-          <xs:enumeration value="DB2 Legacy CLI-based Type 2 JDBC Driver (Deprecated)" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="implementationType" use="optional">
-      <xs:annotation>
-        <xs:documentation>The implementation type for this JDBC provider. Use Connection pool data source if your application runs in a single phase or a local transaction. Otherwise, use XA data source to run in a global transaction.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Connection pool data source" />
-          <xs:enumeration value="XA data source" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="name" type="xs:string" use="required">
-      <xs:annotation>
-        <xs:documentation>The name of the JDBC provider. The default is the value from the provider template.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="description" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>The description for the JDBC provider.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:element name="CellConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Security">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element minOccurs="0" maxOccurs="unbounded" name="JAASAuthData">
-                <xs:annotation>
-                  <xs:documentation>Specifies a list of userid and password for use by Java 2 Connector security.
-</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                  <xs:attribute name="alias" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>Identifier for the auth data entry which contains a user id and password pair. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                  <xs:attribute name="userId" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>Specifies userid to use for the target Enterprise Information System. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                  <xs:attribute name="password" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>Specifies the password to use for the target Enterprise Information System. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                  <xs:attribute name="description" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>Comments may be added here to describe the intended use of the user id and password pair. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" name="CellDefaultKeyStore">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" name="SignerCertificate">
-                      <xs:complexType>
-                        <xs:attribute name="alias" type="xs:string" use="optional" />
-                        <xs:attribute name="issuedTo" type="xs:string" use="optional" />
-                        <xs:attribute name="validity" type="xs:string" use="optional" />
-                      </xs:complexType>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="PersonalCertificate">
-                      <xs:complexType>
-                        <xs:attribute name="alias" type="xs:string" use="optional" />
-                        <xs:attribute name="issuedTo" type="xs:string" use="optional" />
-                        <xs:attribute name="validity" type="xs:string" use="optional" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" name="CellDefaultTrustStore">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" name="SignerCertificate">
-                      <xs:complexType>
-                        <xs:attribute name="alias" type="xs:string" use="optional" />
-                        <xs:attribute name="issuedTo" type="xs:string" use="optional" />
-                        <xs:attribute name="validity" type="xs:string" use="optional" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" name="Resources">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element name="MailProvider" type="MailProvider" />
-                <xs:element name="URLProvider" type="URLProvider" />
-                <xs:element name="WorkManagerProvider" type="WorkManagerProvider" />
-                <xs:element name="CacheProvider" type="CacheProvider" />
-                <xs:element name="NameBindings" type="NameBindings" />
-                <xs:element name="JDBCProvider" type="JDBCProvider" />
-                <xs:element name="JMSProvider" type="JMSProvider" />
-                <xs:element minOccurs="0" name="SIBus" type="SIBus" />
-                <xs:element minOccurs="0" name="VirtualHost" type="VirtualHost" />
-                <xs:element minOccurs="0" name="DataReplicationDomain" type="DataReplicationDomain" />
-                <xs:element minOccurs="0" name="VariableMap" type="VariableMap" />
-              </xs:choice>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Connection pool data source"/>
+                    <xs:enumeration value="XA data source"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>The name of the JDBC provider. The default is the value from the provider template.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="description" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>The description for the JDBC provider.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
-  </xs:element>
-  <xs:complexType name="JMSProvider">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="WASQueueConnectionFactory">
+    <xs:element name="CellConfig">
         <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:annotation>
-                <xs:documentation>The default data replication settings for this data replication domain. </xs:documentation>
-              </xs:annotation>
-              <xs:complexType>
-                <xs:all>
-                  <xs:element minOccurs="0" name="authDataAlias" type="xs:string">
-                    <xs:annotation>
-                      <xs:documentation>The alias used for database authentication at run time. This alias is only used when the application resource reference is using res-auth=Application.</xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                  <xs:element minOccurs="0" name="connectionPool" type="ConnectionPool">
-                    <xs:annotation>
-                      <xs:documentation>An optional set of connection pool settings. </xs:documentation>
-                    </xs:annotation>
-                  </xs:element>
-                </xs:all>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-          <xs:attribute name="name" type="xs:string" use="optional" />
-          <xs:attribute name="jndiName" type="xs:string" use="optional" />
-          <xs:attribute name="authDataAlias" type="xs:string" use="optional" />
-          <xs:attribute name="description" type="xs:string" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element minOccurs="0" name="WASQueue">
-        <xs:complexType>
-          <xs:attribute name="name" type="xs:string" use="optional" />
-          <xs:attribute name="jndiName" type="xs:string" use="optional" />
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="optional" />
-  </xs:complexType>
-  <xs:complexType name="SIBMessagingEngine">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="SIBMQClientLink">
-              <xs:complexType>
-                <xs:attribute name="name" type="xs:string" use="optional" />
-                <xs:attribute name="channelName" type="xs:string" use="optional" />
-                <xs:attribute name="qmName" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="busName" type="xs:string" use="optional" />
-    <xs:attribute name="name" type="xs:string" />
-  </xs:complexType>
-  <xs:complexType name="DRSSettings">
-    <xs:annotation>
-      <xs:documentation>An object of this class will store replication related settings for a Data Replication Service end point. These settings are used while creating an end point, and it (along with the properties of the multibroker domain ) determines the replication behavior demonstrated by this end point.The attributes ids,overrideHostConnectionPoints, preferredLocalDRSBrokerName and dataReplicationMode are used pre-6.0 only.</xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="dataReplicationMode" use="optional">
-      <xs:annotation>
-        <xs:documentation>This attributes determines whether the client using this Data Replication Service endpoint would like to be a client, a server or both for the purpose of sending and receiving replicated objects.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="SERVER" />
-          <xs:enumeration value="CLIENT" />
-          <xs:enumeration value="BOTH" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="messageBrokerDomainName" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>Required if session management is using DRS.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="URLProvider">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="URL">
-        <xs:complexType>
-          <xs:attribute name="name" type="xs:string" />
-          <xs:attribute name="jndiName" type="xs:string" />
-          <xs:attribute name="spec" type="xs:string" />
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Applications">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" name="Application">
-          <xs:complexType>
             <xs:sequence>
-              <xs:element minOccurs="0" name="Attributes">
-                <xs:complexType>
-                  <xs:attribute name="binariesURL" type="xs:string" use="optional" />
-                  <xs:attribute name="classloader.mode" type="xs:string" use="optional" />
-                  <xs:attribute name="warClassLoaderPolicy" type="xs:string" use="optional" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" name="ApplicationConfig">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element minOccurs="0" name="Attributes">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element minOccurs="0" name="sessionManagement">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element minOccurs="0" name="Attributes">
-                                  <xs:complexType>
-                                    <xs:sequence>
-                                      <xs:element minOccurs="0" name="defaultCookieSettings">
-                                        <xs:complexType>
-                                          <xs:attribute name="domain" type="xs:string" use="optional" />
-                                          <xs:attribute name="name" type="xs:string" use="optional" />
-                                          <xs:attribute name="path" type="xs:string" use="optional" />
-                                        </xs:complexType>
-                                      </xs:element>
-                                    </xs:sequence>
-                                  </xs:complexType>
-                                </xs:element>
-                              </xs:sequence>
-                              <xs:attribute name="enableCookies" type="xs:string" use="optional" />
-                              <xs:attribute name="enableUrlRewriting" type="xs:string" use="optional" />
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" maxOccurs="unbounded" name="Module">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element minOccurs="0" name="Attributes">
-                      <xs:complexType>
-                        <xs:all>
-                          <xs:element minOccurs="0" name="classloaderMode" type="xs:string" />
-                          <xs:element minOccurs="0" name="startingWeight" type="xs:string" />
-                          <xs:element minOccurs="0" name="WebModuleConfig">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element minOccurs="0" name="Attributes">
-                                  <xs:complexType>
-                                    <xs:sequence>
-                                      <xs:element minOccurs="0" name="sessionManagement">
-                                        <xs:complexType>
-                                          <xs:sequence>
-                                            <xs:element minOccurs="0" name="Attributes">
-                                              <xs:complexType>
-                                                <xs:sequence>
-                                                  <xs:element minOccurs="0" name="defaultCookieSettings">
-                                                    <xs:complexType>
-                                                      <xs:attribute name="domain" type="xs:string" use="optional" />
-                                                      <xs:attribute name="name" type="xs:string" use="optional" />
-                                                      <xs:attribute name="path" type="xs:string" use="optional" />
-                                                    </xs:complexType>
-                                                  </xs:element>
-                                                </xs:sequence>
-                                              </xs:complexType>
-                                            </xs:element>
-                                          </xs:sequence>
-                                          <xs:attribute name="enableCookies" type="xs:string" use="optional" />
-                                          <xs:attribute name="enableUrlRewriting" type="xs:string" use="optional" />
-                                        </xs:complexType>
-                                      </xs:element>
-                                    </xs:sequence>
-                                  </xs:complexType>
-                                </xs:element>
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:all>
-                      </xs:complexType>
-                    </xs:element>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Target">
-                      <xs:complexType>
-                        <xs:attribute name="node" type="xs:string" use="optional" />
-                        <xs:attribute name="server" type="xs:string" use="optional" />
-                        <xs:attribute name="cluster" type="xs:string" use="optional" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="uri" type="xs:string" use="optional" />
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="optional" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="NodeConfig">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Resources">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element name="MailProvider" type="MailProvider" />
-                <xs:element name="URLProvider" type="URLProvider" />
-                <xs:element name="WorkManagerProvider" type="WorkManagerProvider" />
-                <xs:element name="CacheProvider" type="CacheProvider" />
-                <xs:element name="NameBindings" type="NameBindings" />
-                <xs:element name="JDBCProvider" type="JDBCProvider" />
-                <xs:element name="JMSProvider" type="JMSProvider" />
-                <xs:element minOccurs="0" name="VariableMap" type="VariableMap" />
-              </xs:choice>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="optional" />
-    </xs:complexType>
-  </xs:element>
-  <xs:complexType name="VariableMap">
-    <xs:annotation>
-      <xs:documentation>VariableMap is a collection of VariableSubstitutionEntries that form a set of variables for a specific scope.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="VariableSubstitutionEntry">
-        <xs:complexType>
-          <xs:attribute name="symbolicName" type="xs:string" use="optional">
-            <xs:annotation>
-              <xs:documentation>The symbolic name representing a physical path or URL root. This pathname will get substituted into path names configured in the system.For example on windows, "CONFIG_ROOT"</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="value" type="xs:string" use="optional">
-            <xs:annotation>
-              <xs:documentation>The absolute path which the symbolic name represents.For example on windows, "C:\WebSphere\AppServer\Config"</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="SessionManager">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:all>
-            <xs:element minOccurs="0" name="enableCookies" type="xs:string" />
-            <xs:element minOccurs="0" name="enableUrlRewriting" type="xs:string" />
-            <xs:element minOccurs="0" name="sessionPersistenceMode" type="xs:string" />
-            <xs:element minOccurs="0" name="tuningParams">
-              <xs:complexType>
-                <xs:attribute name="invalidationTimeout" type="xs:string" use="optional" />
-                <xs:attribute name="maxInMemorySessionCount" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings" />
-            <xs:element minOccurs="0" name="defaultCookieSettings">
-              <xs:complexType>
-                <xs:attribute name="domain" type="xs:string" use="optional" />
-                <xs:attribute name="name" type="xs:string" use="optional" />
-                <xs:attribute name="path" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-          </xs:all>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="TransactionService">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="clientInactivityTimeout" type="xs:string" />
-            <xs:element minOccurs="0" name="totalTranLifetimeTimeout" type="xs:string" />
-            <xs:element minOccurs="0" name="propogatedOrBMTTranLifetimeTimeout" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="PMIService">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="synchronizedUpdate" type="xs:string" />
-            <xs:element minOccurs="0" name="statisticSet" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="JavaVirtualMachine">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:element name="genericJvmArguments" type="xs:string" />
-              <xs:element name="maximumHeapSize" type="xs:string" />
-              <xs:element name="initialHeapSize" type="xs:string" />
-              <xs:element minOccurs="0" maxOccurs="unbounded" name="Property">
-                <xs:complexType>
-                  <xs:attribute name="name" type="xs:string" />
-                  <xs:attribute name="value" type="xs:string" />
-                </xs:complexType>
-              </xs:element>
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="WebContainer">
-    <xs:choice>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Property">
-              <xs:complexType>
-                <xs:attribute name="name" type="xs:string" use="optional" />
-                <xs:attribute name="value" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-  <xs:complexType name="DynamicCache">
-    <xs:sequence>
-      <xs:element name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="replicationType" type="xs:string" />
-            <xs:element minOccurs="0" name="enableCacheReplication" type="xs:string" />
-            <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ApplicationServer">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="webserverPluginSettings">
-              <xs:complexType>
-                <xs:attribute name="ConnectTimeout" type="xs:string" use="optional" />
-                <xs:attribute name="ExtendedHandshake" type="xs:string" use="optional" />
-                <xs:attribute name="MaxConnections" type="xs:string" use="optional" />
-                <xs:attribute name="ServerIOTimeout" type="xs:string" use="optional" />
-                <xs:attribute name="WaitForContinue" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" maxOccurs="unbounded" name="Classloader">
-              <xs:complexType>
-                <xs:sequence>
-                  <xs:element minOccurs="0" name="Attributes">
+                <xs:element minOccurs="0" name="Security">
                     <xs:complexType>
-                      <xs:sequence>
-                        <xs:element minOccurs="0" maxOccurs="unbounded" name="LibraryRef">
-                          <xs:complexType>
-                            <xs:attribute name="libraryName" type="xs:string" use="optional" />
-                            <xs:attribute name="sharedClassloader" type="xs:string" use="optional" />
-                          </xs:complexType>
-                        </xs:element>
-                      </xs:sequence>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="JAASAuthData">
+                                <xs:annotation>
+                                    <xs:documentation>Specifies a list of userid and password for use by Java 2
+                                        Connector security.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="alias" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Identifier for the auth data entry which contains a user
+                                                id and password pair.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="userId" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Specifies userid to use for the target Enterprise
+                                                Information System.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="password" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Specifies the password to use for the target Enterprise
+                                                Information System.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="description" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Comments may be added here to describe the intended use of
+                                                the user id and password pair.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="CellDefaultKeyStore">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SignerCertificate">
+                                            <xs:complexType>
+                                                <xs:attribute name="alias" type="xs:string" use="optional"/>
+                                                <xs:attribute name="issuedTo" type="xs:string" use="optional"/>
+                                                <xs:attribute name="validity" type="xs:string" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" name="PersonalCertificate">
+                                            <xs:complexType>
+                                                <xs:attribute name="alias" type="xs:string" use="optional"/>
+                                                <xs:attribute name="issuedTo" type="xs:string" use="optional"/>
+                                                <xs:attribute name="validity" type="xs:string" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="CellDefaultTrustStore">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" maxOccurs="unbounded" name="SignerCertificate">
+                                            <xs:complexType>
+                                                <xs:attribute name="alias" type="xs:string" use="optional"/>
+                                                <xs:attribute name="issuedTo" type="xs:string" use="optional"/>
+                                                <xs:attribute name="validity" type="xs:string" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
                     </xs:complexType>
-                  </xs:element>
-                </xs:sequence>
-                <xs:attribute name="mode" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
+                </xs:element>
+                <xs:element minOccurs="0" name="Resources">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="MailProvider" type="MailProvider"/>
+                                <xs:element name="URLProvider" type="URLProvider"/>
+                                <xs:element name="WorkManagerProvider" type="WorkManagerProvider"/>
+                                <xs:element name="CacheProvider" type="CacheProvider"/>
+                                <xs:element name="NameBindings" type="NameBindings"/>
+                                <xs:element name="JDBCProvider" type="JDBCProvider"/>
+                                <xs:element name="JMSProvider" type="JMSProvider"/>
+                                <xs:element minOccurs="0" name="SIBus" type="SIBus"/>
+                                <xs:element minOccurs="0" name="VirtualHost" type="VirtualHost"/>
+                                <xs:element minOccurs="0" name="DataReplicationDomain" type="DataReplicationDomain"/>
+                                <xs:element minOccurs="0" name="VariableMap" type="VariableMap"/>
+                            </xs:choice>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
         </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="Chain">
-    <xs:annotation>
-      <xs:documentation>Disable or enable a Transport Chain</xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="enable" type="xs:string" use="optional" />
-    <xs:attribute name="name" type="xs:string" use="optional" />
-  </xs:complexType>
-  <xs:complexType name="MessageListenerService">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="ListenerPort">
-              <xs:complexType>
-                <xs:attribute name="name" type="xs:string" use="optional" />
-                <xs:attribute name="destinationJNDIName" type="xs:string" use="optional" />
-                <xs:attribute name="connectionFactoryJNDIName" type="xs:string" use="optional" />
-              </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:sequence>
-                  <xs:element minOccurs="0" name="maxMessages" type="xs:string" />
-                  <xs:element minOccurs="0" name="maxRetries" type="xs:string" />
-                  <xs:element minOccurs="0" name="maxSessions" type="xs:string" />
-                </xs:sequence>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ConnectionPool">
-    <xs:annotation>
-      <xs:documentation>Connection pool properties that can be modified to change the behavior of the J2C connection pool manager. Default values are provided for non-production use. Reviewing and possible modification of these configuration values is recommended.</xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="purgePolicy" use="optional">
-      <xs:annotation>
-        <xs:documentation>Whenever a fatal connection error signal is received by the Connection Pool Manager, the Connection Pool Manager needs to either remove just the failing connection or to remove all of the connections in the pool. </xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="FailingConnectionOnly" />
-          <xs:enumeration value="EntirePool" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="connectionTimeout" type="xs:integer" use="optional">
-      <xs:annotation>
-        <xs:documentation>Connection timeout is the interval, in seconds, after which a connection request times out and a ConnectionWaitTimeoutException is thrown. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute default="1800" name="unusedTimeout" type="xs:integer">
-      <xs:annotation>
-        <xs:documentation>Interval, in seconds, after which an unused connection is discarded by the pool maintenance thread. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute default="1" name="minConnections" type="xs:integer">
-      <xs:annotation>
-        <xs:documentation>The minimum number of managed connections to maintain. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute default="10" name="maxConnections" type="xs:integer">
-      <xs:annotation>
-        <xs:documentation>The maximum number of managed connections that can be created by a particular ManagedConnectionFactory. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="SIBus">
-    <xs:annotation>
-      <xs:documentation>This command creates a new service integration bus in the cell.</xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="bus" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>The name by which you want the service integration bus to be known. Choose a unique name. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="description" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>An optional description for the bus, for administrative purposes.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="VirtualHost">
-    <xs:annotation>
-      <xs:documentation>Configuration for enabling a single host machine to resemble multiple host machines. Resources associated with one virtual host cannot share data with resources associated with another virtual host, even if the virtual hosts share the same physical machine. Each virtual host has a logical name and a list of one or more DNS aliases by which it is known. A DNS alias is the TCP/IP host name and port number used to request a Web module resource (such as a servlet, JSP file, or HTML page). For example, it is the "myhost:80" portion of a client request for http://myhost:80/servlet/snoop. When a client request is made, the server name and port number are compared to a list of all known aliases in an effort to locate the correct virtual host and serve the requested resource.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:annotation>
-          <xs:documentation>The list of one or more DNS aliases by which the virtual host is known. </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:element name="MimeEntry">
-                <xs:annotation>
-                  <xs:documentation>Configuration for aliases. An alias is the DNS host name and port number used by a client to form the URL request for a Web application resource (such as a servlet, JSP, or HTML page). For example, it is the "myhost:8080" portion of http://myhost:8080/servlet/snoop. When no port number is specified, the default port 80 is used.</xs:documentation>
-                </xs:annotation>
+    </xs:element>
+    <xs:complexType name="JMSProvider">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="WASQueueConnectionFactory">
                 <xs:complexType>
-                  <xs:attribute name="extensions" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>The IP address, DNS host name with domain name suffix, or just the DNS host name, used by a client to request a Web application resource (such as a servlet, JSP, or HTML page). </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                  <xs:attribute name="type" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>A port value can be specified in conjunction with the host name to indicate the port for which the Web server has been configured to accept client requests. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:annotation>
+                                <xs:documentation>The default data replication settings for this data replication
+                                    domain.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" name="authDataAlias" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The alias used for database authentication at run time.
+                                                This alias is only used when the application resource reference is using
+                                                res-auth=Application.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="connectionPool" type="ConnectionPool">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional set of connection pool settings.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="optional"/>
+                    <xs:attribute name="jndiName" type="xs:string" use="optional"/>
+                    <xs:attribute name="authDataAlias" type="xs:string" use="optional"/>
+                    <xs:attribute name="description" type="xs:string"/>
                 </xs:complexType>
-              </xs:element>
-              <xs:element name="HostAlias">
-                <xs:annotation>
-                  <xs:documentation>Configuration for aliases. An alias is the DNS host name and port number used by a client to form the URL request for a Web application resource (such as a servlet, JSP, or HTML page). For example, it is the "myhost:8080" portion of http://myhost:8080/servlet/snoop. When no port number is specified, the default port 80 is used.</xs:documentation>
-                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="WASQueue">
                 <xs:complexType>
-                  <xs:attribute name="hostname" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>The IP address, DNS host name with domain name suffix, or just the DNS host name, used by a client to request a Web application resource (such as a servlet, JSP, or HTML page). </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
-                  <xs:attribute name="port" type="xs:string" use="optional">
-                    <xs:annotation>
-                      <xs:documentation>A port value can be specified in conjunction with the host name to indicate the port for which the Web server has been configured to accept client requests. </xs:documentation>
-                    </xs:annotation>
-                  </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="optional"/>
+                    <xs:attribute name="jndiName" type="xs:string" use="optional"/>
                 </xs:complexType>
-              </xs:element>
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>A logical name used for configuring Web applications to a particular host name.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="DataReplicationDomain">
-    <xs:annotation>
-      <xs:documentation>The DataReplicationDomain is a new root object that has been introduced in v6.0. All replication domains that are created through the admin console in v6.0 will be DataReplicationDomains. </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Attributes">
-        <xs:annotation>
-          <xs:documentation>The default data replication settings for this data replication domain. </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="DataReplication">
-              <xs:annotation>
-                <xs:documentation>Global tuning and configuration options for internal replication within a replication domain.useSSL, userId, password and ssl are ignored (pre- and post-6.0).messageBrokerName, pooling, partition, serialization are used pre-6.0 only.numberOfReplicas is a new field that will be used post 6.0 only.</xs:documentation>
-              </xs:annotation>
-              <xs:complexType>
-                <xs:attribute default="1" name="numberOfReplicas" type="xs:integer">
-                  <xs:annotation>
-                    <xs:documentation>Number of replicas to be created for every entry that is replicated over internal replication. </xs:documentation>
-                  </xs:annotation>
-                </xs:attribute>
-              </xs:complexType>
             </xs:element>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="optional">
-      <xs:annotation>
-        <xs:documentation>This member contains the name of the DataReplicationDomain. </xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:complexType>
-  <xs:complexType name="SharedLibraries">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Library">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element minOccurs="0" name="Attributes">
-              <xs:complexType>
-                <xs:sequence>
-                  <xs:element minOccurs="0" name="classPath" type="xs:string" />
-                </xs:sequence>
-              </xs:complexType>
-            </xs:element>
-          </xs:sequence>
-          <xs:attribute name="name" type="xs:string" use="optional" />
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Cell">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element minOccurs="0" ref="CellConfig" />
-          <xs:element minOccurs="0" ref="NodeConfig" />
-          <xs:element minOccurs="0" ref="ServerCluster" />
-          <xs:element minOccurs="0" ref="Applications" />
-        </xs:choice>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="optional"/>
     </xs:complexType>
-  </xs:element>
+    <xs:complexType name="SIBMessagingEngine">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="SIBMQClientLink">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string" use="optional"/>
+                                <xs:attribute name="channelName" type="xs:string" use="optional"/>
+                                <xs:attribute name="qmName" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="busName" type="xs:string" use="optional"/>
+        <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="DRSSettings">
+        <xs:annotation>
+            <xs:documentation>An object of this class will store replication related settings for a Data Replication
+                Service end point. These settings are used while creating an end point, and it (along with the
+                properties of the multibroker domain ) determines the replication behavior demonstrated by this end
+                point.The attributes ids,overrideHostConnectionPoints, preferredLocalDRSBrokerName and
+                dataReplicationMode are used pre-6.0 only.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="dataReplicationMode" use="optional">
+            <xs:annotation>
+                <xs:documentation>This attributes determines whether the client using this Data Replication Service
+                    endpoint would like to be a client, a server or both for the purpose of sending and receiving
+                    replicated objects.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="SERVER"/>
+                    <xs:enumeration value="CLIENT"/>
+                    <xs:enumeration value="BOTH"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="messageBrokerDomainName" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Required if session management is using DRS.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="URLProvider">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="URL">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="jndiName" type="xs:string"/>
+                    <xs:attribute name="spec" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Applications">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Application">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="Attributes">
+                                <xs:complexType>
+                                    <xs:attribute name="binariesURL" type="xs:string" use="optional"/>
+                                    <xs:attribute name="classloader.mode" type="xs:string" use="optional"/>
+                                    <xs:attribute name="warClassLoaderPolicy" type="xs:string" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="ApplicationConfig">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="Attributes">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element minOccurs="0" name="sessionManagement">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element minOccurs="0" name="Attributes">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element minOccurs="0"
+                                                                                        name="defaultCookieSettings">
+                                                                                <xs:complexType>
+                                                                                    <xs:attribute name="domain"
+                                                                                                  type="xs:string"
+                                                                                                  use="optional"/>
+                                                                                    <xs:attribute name="name"
+                                                                                                  type="xs:string"
+                                                                                                  use="optional"/>
+                                                                                    <xs:attribute name="path"
+                                                                                                  type="xs:string"
+                                                                                                  use="optional"/>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="enableCookies" type="xs:string"
+                                                                          use="optional"/>
+                                                            <xs:attribute name="enableUrlRewriting" type="xs:string"
+                                                                          use="optional"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Module">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" name="Attributes">
+                                            <xs:complexType>
+                                                <xs:all>
+                                                    <xs:element minOccurs="0" name="classloaderMode" type="xs:string"/>
+                                                    <xs:element minOccurs="0" name="startingWeight" type="xs:string"/>
+                                                    <xs:element minOccurs="0" name="WebModuleConfig">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element minOccurs="0" name="Attributes">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element minOccurs="0"
+                                                                                        name="sessionManagement">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element minOccurs="0"
+                                                                                                    name="Attributes">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element
+                                                                                                            minOccurs="0"
+                                                                                                            name="defaultCookieSettings">
+                                                                                                        <xs:complexType>
+                                                                                                            <xs:attribute
+                                                                                                                    name="domain"
+                                                                                                                    type="xs:string"
+                                                                                                                    use="optional"/>
+                                                                                                            <xs:attribute
+                                                                                                                    name="name"
+                                                                                                                    type="xs:string"
+                                                                                                                    use="optional"/>
+                                                                                                            <xs:attribute
+                                                                                                                    name="path"
+                                                                                                                    type="xs:string"
+                                                                                                                    use="optional"/>
+                                                                                                        </xs:complexType>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                    <xs:attribute name="enableCookies"
+                                                                                                  type="xs:string"
+                                                                                                  use="optional"/>
+                                                                                    <xs:attribute
+                                                                                            name="enableUrlRewriting"
+                                                                                            type="xs:string"
+                                                                                            use="optional"/>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:all>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" maxOccurs="unbounded" name="Target">
+                                            <xs:complexType>
+                                                <xs:attribute name="node" type="xs:string" use="optional"/>
+                                                <xs:attribute name="server" type="xs:string" use="optional"/>
+                                                <xs:attribute name="cluster" type="xs:string" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="uri" type="xs:string" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="NodeConfig">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="Resources">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="MailProvider" type="MailProvider"/>
+                                <xs:element name="URLProvider" type="URLProvider"/>
+                                <xs:element name="WorkManagerProvider" type="WorkManagerProvider"/>
+                                <xs:element name="CacheProvider" type="CacheProvider"/>
+                                <xs:element name="NameBindings" type="NameBindings"/>
+                                <xs:element name="JDBCProvider" type="JDBCProvider"/>
+                                <xs:element name="JMSProvider" type="JMSProvider"/>
+                                <xs:element minOccurs="0" name="VariableMap" type="VariableMap"/>
+                            </xs:choice>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="VariableMap">
+        <xs:annotation>
+            <xs:documentation>VariableMap is a collection of VariableSubstitutionEntries that form a set of variables
+                for a specific scope.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="VariableSubstitutionEntry">
+                <xs:complexType>
+                    <xs:attribute name="symbolicName" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The symbolic name representing a physical path or URL root. This pathname
+                                will get substituted into path names configured in the system.For example on windows,
+                                "CONFIG_ROOT"
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="value" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The absolute path which the symbolic name represents.For example on
+                                windows, "C:\WebSphere\AppServer\Config"
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SessionManager">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element minOccurs="0" name="enableCookies" type="xs:string"/>
+                        <xs:element minOccurs="0" name="enableUrlRewriting" type="xs:string"/>
+                        <xs:element minOccurs="0" name="sessionPersistenceMode" type="xs:string"/>
+                        <xs:element minOccurs="0" name="tuningParams">
+                            <xs:complexType>
+                                <xs:attribute name="invalidationTimeout" type="xs:string" use="optional"/>
+                                <xs:attribute name="maxInMemorySessionCount" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings"/>
+                        <xs:element minOccurs="0" name="defaultCookieSettings">
+                            <xs:complexType>
+                                <xs:attribute name="domain" type="xs:string" use="optional"/>
+                                <xs:attribute name="name" type="xs:string" use="optional"/>
+                                <xs:attribute name="path" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TransactionService">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="clientInactivityTimeout" type="xs:string"/>
+                        <xs:element minOccurs="0" name="totalTranLifetimeTimeout" type="xs:string"/>
+                        <xs:element minOccurs="0" name="propogatedOrBMTTranLifetimeTimeout" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PMIService">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="synchronizedUpdate" type="xs:string"/>
+                        <xs:element minOccurs="0" name="statisticSet" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="JavaVirtualMachine">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="genericJvmArguments" type="xs:string"/>
+                            <xs:element name="maximumHeapSize" type="xs:string"/>
+                            <xs:element name="initialHeapSize" type="xs:string"/>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Property">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string"/>
+                                    <xs:attribute name="value" type="xs:string"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WebContainer">
+        <xs:choice>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Property">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string" use="optional"/>
+                                <xs:attribute name="value" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="DynamicCache">
+        <xs:sequence>
+            <xs:element name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="replicationType" type="xs:string"/>
+                        <xs:element minOccurs="0" name="enableCacheReplication" type="xs:string"/>
+                        <xs:element minOccurs="0" name="DRSSettings" type="DRSSettings"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ApplicationServer">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="webserverPluginSettings">
+                            <xs:complexType>
+                                <xs:attribute name="ConnectTimeout" type="xs:string" use="optional"/>
+                                <xs:attribute name="ExtendedHandshake" type="xs:string" use="optional"/>
+                                <xs:attribute name="MaxConnections" type="xs:string" use="optional"/>
+                                <xs:attribute name="ServerIOTimeout" type="xs:string" use="optional"/>
+                                <xs:attribute name="WaitForContinue" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="Classloader">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="Attributes">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element minOccurs="0" maxOccurs="unbounded" name="LibraryRef">
+                                                    <xs:complexType>
+                                                        <xs:attribute name="libraryName" type="xs:string"
+                                                                      use="optional"/>
+                                                        <xs:attribute name="sharedClassloader" type="xs:string"
+                                                                      use="optional"/>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="mode" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Chain">
+        <xs:annotation>
+            <xs:documentation>Disable or enable a Transport Chain</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="enable" type="xs:string" use="optional"/>
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="MessageListenerService">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ListenerPort">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string" use="optional"/>
+                                <xs:attribute name="destinationJNDIName" type="xs:string" use="optional"/>
+                                <xs:attribute name="connectionFactoryJNDIName" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="maxMessages" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="maxRetries" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="maxSessions" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ConnectionPool">
+        <xs:annotation>
+            <xs:documentation>Connection pool properties that can be modified to change the behavior of the J2C
+                connection pool manager. Default values are provided for non-production use. Reviewing and possible
+                modification of these configuration values is recommended.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="purgePolicy" use="optional">
+            <xs:annotation>
+                <xs:documentation>Whenever a fatal connection error signal is received by the Connection Pool Manager,
+                    the Connection Pool Manager needs to either remove just the failing connection or to remove all of
+                    the connections in the pool.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="FailingConnectionOnly"/>
+                    <xs:enumeration value="EntirePool"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="connectionTimeout" type="xs:integer" use="optional">
+            <xs:annotation>
+                <xs:documentation>Connection timeout is the interval, in seconds, after which a connection request times
+                    out and a ConnectionWaitTimeoutException is thrown.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute default="1800" name="unusedTimeout" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>Interval, in seconds, after which an unused connection is discarded by the pool
+                    maintenance thread.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute default="1" name="minConnections" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>The minimum number of managed connections to maintain.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute default="10" name="maxConnections" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>The maximum number of managed connections that can be created by a particular
+                    ManagedConnectionFactory.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="SIBus">
+        <xs:annotation>
+            <xs:documentation>This command creates a new service integration bus in the cell.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="bus" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>The name by which you want the service integration bus to be known. Choose a unique
+                    name.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="description" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>An optional description for the bus, for administrative purposes.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="VirtualHost">
+        <xs:annotation>
+            <xs:documentation>Configuration for enabling a single host machine to resemble multiple host machines.
+                Resources associated with one virtual host cannot share data with resources associated with another
+                virtual host, even if the virtual hosts share the same physical machine. Each virtual host has a logical
+                name and a list of one or more DNS aliases by which it is known. A DNS alias is the TCP/IP host name and
+                port number used to request a Web module resource (such as a servlet, JSP file, or HTML page). For
+                example, it is the "myhost:80" portion of a client request for http://myhost:80/servlet/snoop. When a
+                client request is made, the server name and port number are compared to a list of all known aliases in
+                an effort to locate the correct virtual host and serve the requested resource.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:annotation>
+                    <xs:documentation>The list of one or more DNS aliases by which the virtual host is known.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="MimeEntry">
+                                <xs:annotation>
+                                    <xs:documentation>Configuration for aliases. An alias is the DNS host name and port
+                                        number used by a client to form the URL request for a Web application resource
+                                        (such as a servlet, JSP, or HTML page). For example, it is the "myhost:8080"
+                                        portion of http://myhost:8080/servlet/snoop. When no port number is specified,
+                                        the default port 80 is used.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="extensions" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>The IP address, DNS host name with domain name suffix, or
+                                                just the DNS host name, used by a client to request a Web application
+                                                resource (such as a servlet, JSP, or HTML page).
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="type" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>A port value can be specified in conjunction with the host
+                                                name to indicate the port for which the Web server has been configured
+                                                to accept client requests.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="HostAlias">
+                                <xs:annotation>
+                                    <xs:documentation>Configuration for aliases. An alias is the DNS host name and port
+                                        number used by a client to form the URL request for a Web application resource
+                                        (such as a servlet, JSP, or HTML page). For example, it is the "myhost:8080"
+                                        portion of http://myhost:8080/servlet/snoop. When no port number is specified,
+                                        the default port 80 is used.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="hostname" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>The IP address, DNS host name with domain name suffix, or
+                                                just the DNS host name, used by a client to request a Web application
+                                                resource (such as a servlet, JSP, or HTML page).
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="port" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>A port value can be specified in conjunction with the host
+                                                name to indicate the port for which the Web server has been configured
+                                                to accept client requests.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>A logical name used for configuring Web applications to a particular host name.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="DataReplicationDomain">
+        <xs:annotation>
+            <xs:documentation>The DataReplicationDomain is a new root object that has been introduced in v6.0. All
+                replication domains that are created through the admin console in v6.0 will be DataReplicationDomains.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Attributes">
+                <xs:annotation>
+                    <xs:documentation>The default data replication settings for this data replication domain.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="DataReplication">
+                            <xs:annotation>
+                                <xs:documentation>Global tuning and configuration options for internal replication
+                                    within a replication domain.useSSL, userId, password and ssl are ignored (pre- and
+                                    post-6.0).messageBrokerName, pooling, partition, serialization are used pre-6.0
+                                    only.numberOfReplicas is a new field that will be used post 6.0 only.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute default="1" name="numberOfReplicas" type="xs:integer">
+                                    <xs:annotation>
+                                        <xs:documentation>Number of replicas to be created for every entry that is
+                                            replicated over internal replication.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>This member contains the name of the DataReplicationDomain.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="SharedLibraries">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Library">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="classPath" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="optional"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Cell">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element minOccurs="0" ref="CellConfig"/>
+                    <xs:element minOccurs="0" ref="NodeConfig"/>
+                    <xs:element minOccurs="0" ref="ServerCluster"/>
+                    <xs:element minOccurs="0" ref="Applications"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

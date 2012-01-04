@@ -26,95 +26,96 @@ from websphere.Definitions import Globals, convertToJaclPath
 from websphere.deploy.deploy import deploy
 
 
-version= "4.0 $Revision: 480 $"
-LogConfig.syslogTag="deploy:WebSphere"
+version = "4.0 $Revision: 480 $"
+LogConfig.syslogTag = "deploy:WebSphere"
 
 import sys
-print "@@ sys.path="+`sys.path`
-print "@@ sys.prefix="+`sys.prefix`
+
+print "@@ sys.path=" + `sys.path`
+print "@@ sys.prefix=" + `sys.prefix`
 #print "registry_all="+`sys.registry`
 
 
-debugHighlight(INFO_, "sys.argv[0]="+`sys.argv[0]`)
+debugHighlight(INFO_, "sys.argv[0]=" + `sys.argv[0]`)
 
 print ""
 print ""
-SCRIPTNAME = "automatedDeploy.py - Version "+version
-highlight(MAJOR_, "running "+SCRIPTNAME )
+SCRIPTNAME = "automatedDeploy.py - Version " + version
+highlight(MAJOR_, "running " + SCRIPTNAME)
 print ""
 
 wasRoot = Globals.wasRoot
-log(INFO_, "envar was.install.root="+wasRoot )
+log(INFO_, "envar was.install.root=" + wasRoot)
 
 action = ""
 failOnError = ""
 distDir = ""
 
 base = 0
-if(len(sys.argv)>0):
-        param1 = sys.argv[0]
-        param1 = param1[len(param1)-3:].lower()
-        if(param1==".py" or param1==".jy"):
-                base = 1
+if len(sys.argv) > 0:
+    param1 = sys.argv[0]
+    param1 = param1[len(param1) - 3:].lower()
+    if param1 == ".py" or param1 == ".jy":
+        base = 1
         #endIf
 #endIf
-if ( len(sys.argv) > (base+0) ):
-        action = sys.argv[base+0]
-        if (len(sys.argv) > (base+1) ):
-                        failOnError = sys.argv[(base+1)]
-                        if (len(sys.argv) > (base+2) ):
-                                distDir = sys.argv[(base+2)]
-                                if (len(sys.argv) > (base+3) ):
-                                        extra = sys.argv[(base+3)]
-                                        log(ERROR_, SCRIPTNAME+": only accepts 3 parameters, ignoring "+extra )
-                                #endIf
-                        #endIf
+if len(sys.argv) > (base + 0):
+    action = sys.argv[base + 0]
+    if len(sys.argv) > (base + 1):
+        failOnError = sys.argv[(base + 1)]
+        if len(sys.argv) > (base + 2):
+            distDir = sys.argv[(base + 2)]
+            if len(sys.argv) > (base + 3):
+                extra = sys.argv[(base + 3)]
+                log(ERROR_, SCRIPTNAME + ": only accepts 3 parameters, ignoring " + extra)
                 #endIf
-        #endIf
-elif (len(action) == 0):
-        proc_result = SCRIPTNAME+" requires 1-3 params (action failonerror distDir)"
-        log(ERROR_, proc_result )
-        sys.exit( proc_result)
+                #endIf
+                #endIf
+                #endIf
+elif not len(action):
+    proc_result = SCRIPTNAME + " requires 1-3 params (action failonerror distDir)"
+    log(ERROR_, proc_result)
+    sys.exit(proc_result)
 #endIf
-if (len(action) <= 0):
-        action = "confirm"
+if len(action) <= 0:
+    action = "confirm"
 #endIf
-if (len(failOnError) <= 0):
-        failOnError = "true"
+if len(failOnError) <= 0:
+    failOnError = "true"
 #endIf
-if (len(distDir) <= 0):
-        distDir = "./dist"
+if len(distDir) <= 0:
+    distDir = "./dist"
 #endIf
-distDir = convertToJaclPath(distDir )
+distDir = convertToJaclPath(distDir)
 
 printInformation()
 log(MAJOR_, ": invoking deploy " + action + " " + failOnError + " " + distDir + " " + `wasRoot`)
-deploy(action, failOnError, distDir, wasRoot )
+deploy(action, failOnError, distDir, wasRoot)
 
 print ""
 print ""
 print ""
 if len(LogConfig.errors) > 0:
-        log(DEBUG_, "errors.length="+`len(LogConfig.errors)` )
-        msgs = ""
-        for msg in LogConfig.errors:
-                msgs = msgs+"\n"+msg
+    log(DEBUG_, "errors.length=" + `len(LogConfig.errors)`)
+    msgs = ""
+    for msg in LogConfig.errors:
+        msgs = msgs + "\n" + msg
         #endFor
-        debugHighlight(ERROR_, "ERRORS during "+action+":"+msgs )
+    debugHighlight(ERROR_, "ERRORS during " + action + ":" + msgs)
 #endIf
 if len(LogConfig.warnings) > 0:
-        log(DEBUG_, "warnings.length="+`len(LogConfig.warnings)` )
-        msgs = ""
-        for msg in LogConfig.warnings:
-                msgs = msgs+"\n"+msg
+    log(DEBUG_, "warnings.length=" + `len(LogConfig.warnings)`)
+    msgs = ""
+    for msg in LogConfig.warnings:
+        msgs = msgs + "\n" + msg
         #endFor
-        highlight(WARNING_, "WARNINGS during "+action+":"+msgs )
+    highlight(WARNING_, "WARNINGS during " + action + ":" + msgs)
 #endIf
 if len(LogConfig.warnings) == 0 and len(LogConfig.errors) == 0:
-        highlight(MAJOR_, "No errors, no warnings during automatedDeployment (action="+action+")" )
+    highlight(MAJOR_, "No errors, no warnings during automatedDeployment (action=" + action + ")")
 #endIf
 
 print ""
-highlight(MAJOR_, SCRIPTNAME+" DONE."  )
+highlight(MAJOR_, SCRIPTNAME + " DONE.")
 print ""
 print ""

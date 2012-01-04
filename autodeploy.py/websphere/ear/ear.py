@@ -28,66 +28,71 @@ def AArrayToOptionString(aarray):
     for item in aarray:
         qitem = []
         for iitem in item:
-            qitem.append('"'+iitem+'"')
-        result.append('['+' '.join(qitem)+']')
-    return '['+''.join(result)+']'
+            qitem.append('"' + iitem + '"')
+        result.append('[' + ' '.join(qitem) + ']')
+    return '[' + ''.join(result) + ']'
 
-def validateEAR ( appPath ):
+
+def validateEAR( appPath ):
     if not os.path.isfile(appPath):
-        fail("File does not exist: %s"%appPath)
+        fail("File does not exist: %s" % appPath)
         return 0
     else:
         return 1
-    log(VERBOSE_, "validateEAR: FUTURE: installed EAR-FILE validation" )
+    log(VERBOSE_, "validateEAR: FUTURE: installed EAR-FILE validation")
+
 #endDef
 
-def installEAR ( action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions ):
-        update = "-appname '%s'" % applicationModel.name
-        if (action == "update"):
-                update = "-update "+update
+def installEAR( action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions ):
+    update = "-appname '%s'" % applicationModel.name
+    if action == "update":
+        update = "-update " + update
         #endIf
-        if (serverName != "" and nodeName != ""):
-            options = update+" -verbose -node "+nodeName+" -server "+serverName+" -distributeApp "+ installOptions
-            options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH( applicationModel, appPath ))
-            options = options + " -MapModulesToServers " + AArrayToOptionString(mapModulesToServers( applicationModel, appPath ))
-            highlight(MAJOR_, "AdminApp.install(" + appPath+ ","+options+")" )
-            installed = WebSphere.AdminApp.install(appPath,options)
-        #endIf
-        elif (clusterName != ""):
-            options = update+" -verbose -cluster "+clusterName+" -distributeApp "+ installOptions
-            options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH( applicationModel, appPath ))
-            options = options + " -MapModulesToServers " + AArrayToOptionString(mapModulesToServers( applicationModel, appPath ))
-            highlight(MAJOR_, "AdminApp.install(" + appPath+ ","+options+")" )
-            installed = WebSphere.AdminApp.install(appPath, options )
-        #endIf
-        else:
-            options = update+" -verbose -distributeApp "+ installOptions
-            options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH( applicationModel, appPath ))
-            options = options + " -MapModulesToServers " + AArrayToOptionString(mapModulesToServers( applicationModel, appPath ))
-            highlight(MAJOR_, "AdminApp.install(" + appPath+ ","+options+")" )
-            installed = WebSphere.AdminApp.install(appPath, options)
+    if serverName != "" and nodeName != "":
+        options = update + " -verbose -node " + nodeName + " -server " + serverName + " -distributeApp " + installOptions
+        options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH(applicationModel, appPath))
+        options = options + " -MapModulesToServers " + AArrayToOptionString(
+            mapModulesToServers(applicationModel, appPath))
+        highlight(MAJOR_, "AdminApp.install(" + appPath + "," + options + ")")
+        installed = WebSphere.AdminApp.install(appPath, options)
+    #endIf
+    elif clusterName != "":
+        options = update + " -verbose -cluster " + clusterName + " -distributeApp " + installOptions
+        options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH(applicationModel, appPath))
+        options = options + " -MapModulesToServers " + AArrayToOptionString(
+            mapModulesToServers(applicationModel, appPath))
+        highlight(MAJOR_, "AdminApp.install(" + appPath + "," + options + ")")
+        installed = WebSphere.AdminApp.install(appPath, options)
+    #endIf
+    else:
+        options = update + " -verbose -distributeApp " + installOptions
+        options = options + " -MapWebModToVH " + AArrayToOptionString(mapWebModToVH(applicationModel, appPath))
+        options = options + " -MapModulesToServers " + AArrayToOptionString(
+            mapModulesToServers(applicationModel, appPath))
+        highlight(MAJOR_, "AdminApp.install(" + appPath + "," + options + ")")
+        installed = WebSphere.AdminApp.install(appPath, options)
         #endElse
-        if (len(installed) > 0):
-                log(INFO_, installed )
+    if len(installed) > 0:
+        log(INFO_, installed)
         #endIf
-        appExists = checkIfAppExists(applicationModel )
-        if (appExists):
-                pass
-        else:
-                fail("failed to installEAR application="+applicationModel.name )
+    appExists = checkIfAppExists(applicationModel)
+    if appExists:
+        pass
+    else:
+        fail("failed to installEAR application=" + applicationModel.name)
         #endElse
-        log(VERBOSE_, "InstallEAR: DONE." )
+    log(VERBOSE_, "InstallEAR: DONE.")
+
 #endDef
 
-def uninstallEAR ( applicationModel ):
-
-
-        log(MAJOR_, "UninstallEAR: "+applicationModel.name+"..." )
-        uninstalled = WebSphere.AdminApp.uninstall(applicationModel.name )
-        log(INFO_, uninstalled )
-        appExists = checkIfAppExists(applicationModel )
-        if (appExists):
-                fail("failed to uninstallEAR application="+applicationModel.name )
+def uninstallEAR( applicationModel ):
+    log(MAJOR_, "UninstallEAR: " + applicationModel.name + "...")
+    uninstalled = WebSphere.AdminApp.uninstall(applicationModel.name)
+    log(INFO_, uninstalled)
+    appExists = checkIfAppExists(applicationModel)
+    if appExists:
+        fail("failed to uninstallEAR application=" + applicationModel.name)
         #endIf
-        log(VERBOSE_, "UninstallEAR: DONE." )
+    log(VERBOSE_, "UninstallEAR: DONE.")
+
 #endDef

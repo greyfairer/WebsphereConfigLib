@@ -21,13 +21,13 @@ from websphere.Definitions import true
 from websphere.attrib.showSet import setAttribute
 
 
-def applySettings ( applicationModel ):
-        for attribute in applicationModel.attributes:
-            setAttribute(applicationModel.name, "Application", attribute.name, attribute.value, applicationModel.name, true )
-            
-        for module in applicationModel.modules:
-            for attribute in module.attributes:
-                setAttribute(module.name, "Module", attribute.name, attribute.value, applicationModel.name, true )
-        
+def applySettings( applicationModel ):
+    for attribute in applicationModel.attributes:
+        setAttribute(applicationModel.name, "Application", attribute.name, attribute.value, applicationModel.name, true)
+
+    for module in applicationModel.modules:
+        for attribute in module.attributes:
+            setAttribute(module.name, "Module", attribute.name, attribute.value, applicationModel.name, true)
+
 
 #endDef

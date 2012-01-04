@@ -2,27 +2,30 @@
 
 <project name="createServer" default="listConfig" basedir=".">
 
-	<property name="wasroot" value="/opt/IBM/WebSphere/AppServer" />
-	<property name="host" value="localhost" />
-	<property name="port" value="8879" />
-	<property name="distDir" value="../../conf"/>
-	<!-- ###### must add user+password if your server is secure ####### -->
-	<taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin" />
-	<target name="listConfig">
-		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython" script="listConfig.py">
-			<arg value="${distDir}"/>
-		</wsAdmin>
-	</target>
+    <property name="wasroot" value="/opt/IBM/WebSphere/AppServer"/>
+    <property name="host" value="localhost"/>
+    <property name="port" value="8879"/>
+    <property name="distDir" value="../../conf"/>
+    <!-- ###### must add user+password if your server is secure ####### -->
+    <taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin"/>
+    <target name="listConfig">
+        <wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython"
+                 script="listConfig.py">
+            <arg value="${distDir}"/>
+        </wsAdmin>
+    </target>
 
-	<target name="split">
-		<property environment="env"/>
-		<echo>${env.WAS_CELL}</echo>
-		<xslt in="${distDir}/${env.WAS_CELL}/${env.WAS_CELL}.xml" out="${distDir}/${env.WAS_CELL}/CellConfig.xml" style="xslt/split.xslt">
-			<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
-		</xslt>
-		<xslt in="${distDir}/${env.WAS_CELL}/${env.WAS_CELL}.xml" out="${distDir}/${env.WAS_CELL}/listClusterApplications.xml" style="xslt/listClusterApplications.xslt">
-			<classpath path="xslt/saxon9.jar"/>
-		</xslt>
-		
-	</target>
+    <target name="split">
+        <property environment="env"/>
+        <echo>${env.WAS_CELL}</echo>
+        <xslt in="${distDir}/${env.WAS_CELL}/${env.WAS_CELL}.xml" out="${distDir}/${env.WAS_CELL}/CellConfig.xml"
+              style="xslt/split.xslt">
+            <outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+        </xslt>
+        <xslt in="${distDir}/${env.WAS_CELL}/${env.WAS_CELL}.xml"
+              out="${distDir}/${env.WAS_CELL}/listClusterApplications.xml" style="xslt/listClusterApplications.xslt">
+            <classpath path="xslt/saxon9.jar"/>
+        </xslt>
+
+    </target>
 </project>

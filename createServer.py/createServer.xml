@@ -2,27 +2,28 @@
 
 <project name="createServer" default="configure">
 
-	<property name="wasroot" value="/opt/IBM/WebSphere/AppServer" />
-	<property name="host" value="localhost" />
-	<property name="port" value="8879" />
-	<property name="configFile" value="clusterConfig.xml"/>
-	
-	<target name="validate">
-	
-		<xmlvalidate file="${configFile}" lenient="false"
-		  failonerror="true" warn="true">
-		  <attribute name="http://apache.org/xml/features/validation/schema"
-		  value="true"/>
-		  <attribute name="http://xml.org/sax/features/namespaces" value="true"/>
-		  <property name="http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation"
-			value="/usr/local/MLEwsadmin/bin/createServer.py/WASConfig.xsd"/>
-		</xmlvalidate>
+    <property name="wasroot" value="/opt/IBM/WebSphere/AppServer"/>
+    <property name="host" value="localhost"/>
+    <property name="port" value="8879"/>
+    <property name="configFile" value="clusterConfig.xml"/>
+
+    <target name="validate">
+
+        <xmlvalidate file="${configFile}" lenient="false"
+                     failonerror="true" warn="true">
+            <attribute name="http://apache.org/xml/features/validation/schema"
+                       value="true"/>
+            <attribute name="http://xml.org/sax/features/namespaces" value="true"/>
+            <property name="http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation"
+                      value="/usr/local/MLEwsadmin/bin/createServer.py/WASConfig.xsd"/>
+        </xmlvalidate>
     </target>
-	<!-- ###### must add user+password if your server is secure ####### -->
-	<taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin" />
-	<target name="configure" depends="validate">
-		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython" script="createServer.py">
-			<arg value="${configFile}"/>
-		</wsAdmin>
-	</target>
+    <!-- ###### must add user+password if your server is secure ####### -->
+    <taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin"/>
+    <target name="configure" depends="validate">
+        <wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="jython"
+                 script="createServer.py">
+            <arg value="${configFile}"/>
+        </wsAdmin>
+    </target>
 </project>

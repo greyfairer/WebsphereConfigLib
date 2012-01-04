@@ -30,77 +30,80 @@ from com.ibm.websphere.management.exception import AdminException
 import os
 
 
-def installAndConfigureApps ( action, distDir, wasRoot, applicationModels ):
-        log(INFO_, "" )
-        log(MAJOR_, "installAndConfigureApps: applicationModels="+`applicationModels`+" ..." )
+def installAndConfigureApps( action, distDir, wasRoot, applicationModels ):
+    log(INFO_, "")
+    log(MAJOR_, "installAndConfigureApps: applicationModels=" + `applicationModels` + " ...")
 
-        listApplications( )
-        result = []
+    listApplications()
+    result = []
 
-        ################ INSTALL (or UPDATE) AND CONFIGURE ##############
-        for applicationModel in applicationModels:
-            try:
-                if(applicationModel.file.startswith("/")):
-                    appPath=applicationModel.file
-                else:
-                    appPath = distDir+"/"+applicationModel.file
-                if not validateEAR(appPath ):
-                    continue
-
-                ################ READ APP INSTALL OPTIONS (from .settings) ##############
-                installOptions = ""
-                for installOption in applicationModel.installOptions:
-                    installOptions = installOptions + " "+installOption
-                ################ INSTALL ##############
-                nodeName = ""
-                serverName = ""
-                if (len(applicationModel.servers) > 0):
-                        appNodeServerPair = applicationModel.servers[0]
-                        nodeName = appNodeServerPair.nodeName
-                        serverName = appNodeServerPair.serverName
-                #endIf
-                clusterName = ""
-                if (len(applicationModel.clusters) > 0):
-                        clusterName = applicationModel.clusters[0].clusterName
-                #endIf
-                if (action == "install"):
-                        appExists = checkIfAppExists(applicationModel )
-                        if (appExists):
-                                msg = "application="+applicationModel.name+" EXISTS, CANNOT install with same name"
-                                fail(msg )
-                                highlight(ERROR_, "application="+applicationModel.name+" EXISTS, will process SETTINGS and TARGETS" )
-                        else:
-                                installEAR(action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions )
-                        #endElse
-                elif (action == "update"):
-                        appExists = checkIfAppExists(applicationModel )
-                        if (appExists):
-                                installEAR(action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions )
-                        else:
-                                msg = "application="+applicationModel.name+" DOES NOT EXIST, will INSTALL instead of UPDATE"
-                                log(WARNING_, msg)
-                                installEAR("install", appPath, applicationModel, clusterName, nodeName, serverName, installOptions )
-                        #endElse
-                #endIf
-
-                ################ CONFIG SETTINGS ##############
-                applySettings(applicationModel )
-
-                ################ VALIDATE INSTALLED APPLICATION ##############
-                validateApplication(applicationModel )
-            except AdminException, e:
-                log(WARNING_, "AdminException="+e.message)
-                WebSphere.AdminConfig.reset( )
-                
+    ################ INSTALL (or UPDATE) AND CONFIGURE ##############
+    for applicationModel in applicationModels:
+        try:
+            if applicationModel.file.startswith("/"):
+                appPath = applicationModel.file
             else:
-                configSave()                
-                syslog("info", "successful %s:%s:%s:%s"%(action, applicationModel.serviceCall, applicationModel.name, applicationModel.version))
-                execScript(applicationModel, "afterInstall")
-                os.rename(applicationModel.configFile, applicationModel.configFile+'.done')
-                applicationModel.configFile = applicationModel.configFile+'.done'
-                result.append(applicationModel)
+                appPath = distDir + "/" + applicationModel.file
+            if not validateEAR(appPath):
+                continue
+
+            ################ READ APP INSTALL OPTIONS (from .settings) ##############
+            installOptions = ""
+            for installOption in applicationModel.installOptions:
+                installOptions = installOptions + " " + installOption
+                ################ INSTALL ##############
+            nodeName = ""
+            serverName = ""
+            if len(applicationModel.servers) > 0:
+                appNodeServerPair = applicationModel.servers[0]
+                nodeName = appNodeServerPair.nodeName
+                serverName = appNodeServerPair.serverName
+                #endIf
+            clusterName = ""
+            if len(applicationModel.clusters) > 0:
+                clusterName = applicationModel.clusters[0].clusterName
+                #endIf
+            if action == "install":
+                appExists = checkIfAppExists(applicationModel)
+                if appExists:
+                    msg = "application=" + applicationModel.name + " EXISTS, CANNOT install with same name"
+                    fail(msg)
+                    highlight(ERROR_,
+                        "application=" + applicationModel.name + " EXISTS, will process SETTINGS and TARGETS")
+                else:
+                    installEAR(action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions)
+                    #endElse
+            elif action == "update":
+                appExists = checkIfAppExists(applicationModel)
+                if appExists:
+                    installEAR(action, appPath, applicationModel, clusterName, nodeName, serverName, installOptions)
+                else:
+                    msg = "application=" + applicationModel.name + " DOES NOT EXIST, will INSTALL instead of UPDATE"
+                    log(WARNING_, msg)
+                    installEAR("install", appPath, applicationModel, clusterName, nodeName, serverName, installOptions)
+                    #endElse
+                #endIf
+
+            ################ CONFIG SETTINGS ##############
+            applySettings(applicationModel)
+
+            ################ VALIDATE INSTALLED APPLICATION ##############
+            validateApplication(applicationModel)
+        except AdminException, e:
+            log(WARNING_, "AdminException=" + e.message)
+            WebSphere.AdminConfig.reset()
+
+        else:
+            configSave()
+            syslog("info", "successful %s:%s:%s:%s" % (
+            action, applicationModel.serviceCall, applicationModel.name, applicationModel.version))
+            execScript(applicationModel, "afterInstall")
+            os.rename(applicationModel.configFile, applicationModel.configFile + '.done')
+            applicationModel.configFile = applicationModel.configFile + '.done'
+            result.append(applicationModel)
         #endFor
-        listApplications( )
-        highlight(MAJOR_, "installAndConfigureApps DONE. (ready to distribute to nodes/servers)" )
-        return result
+    listApplications()
+    highlight(MAJOR_, "installAndConfigureApps DONE. (ready to distribute to nodes/servers)")
+    return result
+
 #endDef

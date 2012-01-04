@@ -17,22 +17,25 @@
 from websphere import WebSphere
 from log.log import log, INFO_
 
-def setJvmHeapSize ( nodeName, serverName, initialHeap, maxHeap ):
-        aJvmID = getJvmID(nodeName, serverName)
-        aJvmAttrs = [["initialHeapSize", initialHeap], ["maximumHeapSize", maxHeap]]
-        modifyJvmAttrs(aJvmID, aJvmAttrs)
+def setJvmHeapSize( nodeName, serverName, initialHeap, maxHeap ):
+    aJvmID = getJvmID(nodeName, serverName)
+    aJvmAttrs = [["initialHeapSize", initialHeap], ["maximumHeapSize", maxHeap]]
+    modifyJvmAttrs(aJvmID, aJvmAttrs)
+
 #endDef
 
 ################### Utility methods ###########################
-def getJvmID ( nodeName, serverName ):
-        aServerID = WebSphere.AdminConfig.getid("/Node:"+nodeName+"/Server:"+serverName+"/" )
-        aJvmID = WebSphere.AdminConfig.list("JavaVirtualMachine", aServerID )
-        return aJvmID
+def getJvmID( nodeName, serverName ):
+    aServerID = WebSphere.AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/")
+    aJvmID = WebSphere.AdminConfig.list("JavaVirtualMachine", aServerID)
+    return aJvmID
+
 #endDef
 
 
-def modifyJvmAttrs ( aJvmID, ajvmAttrs ):
-        WebSphere.AdminConfig.modify(aJvmID, ajvmAttrs )
-        aJvmSettings = WebSphere.AdminConfig.show(aJvmID )
-        log(INFO_, "\nsetJVM changedJvmSettings: \n"+aJvmSettings )
+def modifyJvmAttrs( aJvmID, ajvmAttrs ):
+    WebSphere.AdminConfig.modify(aJvmID, ajvmAttrs)
+    aJvmSettings = WebSphere.AdminConfig.show(aJvmID)
+    log(INFO_, "\nsetJVM changedJvmSettings: \n" + aJvmSettings)
+
 #endDef
