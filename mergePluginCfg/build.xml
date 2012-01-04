@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!-- 
+ *
+ * $ChangeLog$
+ *
+-->
+<project name="mergePluginCfg" default="mergeAll" basedir=".">
+	<property name="pluginDir" value="test/mappsacc.mazdaeur.com" />
+	<property name="class" value="ACCHTTPS" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="./ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="mergeAll">	
+		<delete verbose="true" failonerror="false" file="${pluginDir}/plugin-cfg-merged1.xml" />
+		<delete verbose="true" failonerror="false" file="${pluginDir}/plugin-cfg-merged2.xml" />
+		<delete verbose="true" failonerror="false" file="${pluginDir}/plugin-cfg-merged.xml" />
+		<delete verbose="true" failonerror="false" file="${pluginDir}/plugin-cfg-filtered.xml" />
+
+		<xslt in="${pluginDir}/plugin-cfg.xml" out="${pluginDir}/plugin-cfg-filtered.xml" style="filterPluginCfg-${class}.xslt">
+			<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+		</xslt>
+
+		<xslt in="${pluginDir}/plugin-cfg-filtered.xml" out="${pluginDir}/plugin-cfg-merged1.xml" style="mergePluginCfg.xslt">
+			<param name="mergeFileName" expression="${pluginDir}/plugin-epc3-${class}-fixed.xml" />
+			<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+		</xslt>
+		<xslt in="${pluginDir}/plugin-cfg-merged1.xml" out="${pluginDir}/plugin-cfg-merged2.xml" style="mergePluginCfg.xslt">
+			<param name="mergeFileName" expression="${pluginDir}/plugin-portal-${class}-fixed.xml" />
+			<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+		</xslt>
+		<xslt in="${pluginDir}/plugin-cfg-merged2.xml" out="${pluginDir}/plugin-cfg-merged.xml" style="sortPluginCfg.xslt">
+			<outputproperty name="{http://xml.apache.org/xalan}indent-amount" value="2"/>
+		</xslt>
+
+	</target>
+</project>

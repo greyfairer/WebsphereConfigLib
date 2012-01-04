@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--HTTP server plugin config file for the webserver dmgacc1Network.mappsacc.mazdaeur.com.webaccdmz1 generated on 2009.09.03 at 12:30:31 PM CEST-->
+<Config ASDisableNagle="false" AcceptAllContent="false" AppServerPortPreference="HostHeader" ChunkedResponse="false" FIPSEnable="false" IISDisableNagle="false" IISPluginPriority="High" IgnoreDNSFailures="false" RefreshInterval="60" ResponseChunkSize="64" VHostMatchingCompat="false">
+   <Log LogLevel="Error" Name="/var/log/httpd/http_plugin.log"/>
+   <Property Name="ESIEnable" Value="true"/>
+   <Property Name="ESIMaxCacheSize" Value="1024"/>
+   <Property Name="ESIInvalidationMonitor" Value="false"/>
+   <Property Name="ESIEnableToPassCookies" Value="false"/>
+   <VirtualHostGroup Name="default_host">
+      <VirtualHost Name="mappsacc.mazdaeur.com:443"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9080"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9180"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9380"/>
+      <VirtualHost Name="mappsacc.mle.mazdaeur.com:80"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9280"/>
+      <VirtualHost Name="appacc3.mle.mazdaeur.com:19081"/>
+      <VirtualHost Name="appacc3.mle.mazdaeur.com:19080"/>
+      <VirtualHost Name="appacc3.mle.mazdaeur.com:19090"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9080"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9280"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9180"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9380"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9580"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9480"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9580"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9680"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9980"/>
+      <VirtualHost Name="webaccdmz1.mazdaeur.com:443"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9680"/>
+      <VirtualHost Name="mappsacc.mazdaeur.com:80"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9480"/>
+      <VirtualHost Name="appacc4.mle.mazdaeur.com:9081"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9780"/>
+      <VirtualHost Name="webaccdmz2.mazdaeur.com:443"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9080"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9280"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9480"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9780"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9580"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9380"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9180"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9680"/>
+      <VirtualHost Name="appacc1.mle.mazdaeur.com:9980"/>
+      <VirtualHost Name="appacc6.mle.mazdaeur.com:9080"/>
+      <VirtualHost Name="appacc6.mle.mazdaeur.com:9680"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9980"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:9880"/>
+      <VirtualHost Name="appacc5.mle.mazdaeur.com:19080"/>
+      <VirtualHost Name="appacc6.mle.mazdaeur.com:9180"/>
+      <VirtualHost Name="appacc6.mle.mazdaeur.com:9280"/>
+      <VirtualHost Name="appacc6.mle.mazdaeur.com:9380"/>
+   </VirtualHostGroup>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline6" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13iulqjes" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline6b" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9980" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline6b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCbatch" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13o3fecce" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCbatch1a" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9580" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc1Node01_ACCbatch1a"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline7" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13vbqqgak" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline7b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9780" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline7b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline8" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13vbr2ncs" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline8b" ServerIOTimeout="300" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9880" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline8b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="MAG_ACC2" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13jj605bh" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACCmag2b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9580" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACCmag2b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline5" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13iulup8i" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline5b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9480" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline5b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCservices" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13o0la91l" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCservices1a" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9480" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc1Node01_ACCservices1a"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline1" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13mdi9nmh" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACConline1a" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9380" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc1Node01_ACConline1a"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="MAG_ACC3" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13jj883kj" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACCmag3b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9680" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACCmag3b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline3" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13i781vjk" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline3b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9180" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline3b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline2" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13iuqogh7" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline2b" ServerIOTimeout="60" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9080" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline2b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACConline4" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13ium26vh" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACConline4b" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9280" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc5Node01_ACConline4b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCepss" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13rd99pju" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc6Node01_ACCepssa" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc6.mle.mazdaeur.com" Port="9080" Protocol="http"/>
+      </Server>
+      <Server CloneID="146vi2eom" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCepssb" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9080" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc6Node01_ACCepssa"/>
+         <Server Name="appacc1Node01_ACCepssb"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCepss2" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="14ah9pvm8" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc6Node01_ACCepss2a" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc6.mle.mazdaeur.com" Port="9280" Protocol="http"/>
+      </Server>
+      <Server CloneID="14ah9q804" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCepss2b" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9080" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc6Node01_ACCepss2a"/>
+         <Server Name="appacc1Node01_ACCepss2b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCepss3" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="14ahh2pmg" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc6Node01_ACCepss3a" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc6.mle.mazdaeur.com" Port="9380" Protocol="http"/>
+      </Server>
+      <Server CloneID="14ahh31p1" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCepss3b" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9380" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc6Node01_ACCepss3a"/>
+         <Server Name="appacc1Node01_ACCepss3b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCmum1" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="13o0k5c1m" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCmum1c" ServerIOTimeout="120" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9180" Protocol="http"/>
+      </Server>
+      <Server CloneID="13ostjo06" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc5Node01_ACCmum1a" ServerIOTimeout="120" WaitForContinue="false">
+         <Transport Hostname="appacc5.mle.mazdaeur.com" Port="9380" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc1Node01_ACCmum1c"/>
+         <Server Name="appacc5Node01_ACCmum1a"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <ServerCluster CloneSeparatorChange="false" GetDWLMTable="false" IgnoreAffinityRequests="true" LoadBalance="Round Robin" Name="ACCepss1" PostBufferSize="64" PostSizeLimit="-1" RemoveSpecialHeaders="true" RetryInterval="60">
+      <Server CloneID="14ahe5hiq" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc6Node01_ACCepss1a" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc6.mle.mazdaeur.com" Port="9180" Protocol="http"/>
+      </Server>
+      <Server CloneID="14ahe5ppa" ConnectTimeout="10" ExtendedHandshake="false" LoadBalanceWeight="2" MaxConnections="-1" Name="appacc1Node01_ACCepss1b" ServerIOTimeout="180" WaitForContinue="false">
+         <Transport Hostname="appacc1.mle.mazdaeur.com" Port="9180" Protocol="http"/>
+      </Server>
+      <PrimaryServers>
+         <Server Name="appacc6Node01_ACCepss1a"/>
+         <Server Name="appacc1Node01_ACCepss1b"/>
+      </PrimaryServers>
+   </ServerCluster>
+   <UriGroup Name="default_host_ACCbatch_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/dojo/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epd-remote-web/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/vpo/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCbatch" UriGroup="default_host_ACCbatch_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_MAG_ACC3_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/MazdaMastersWeb/*"/>
+   </UriGroup>
+   <Route ServerCluster="MAG_ACC3" UriGroup="default_host_MAG_ACC3_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_MAG_ACC2_URIs">
+      <Uri AffinityCookie="TAD_JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/tadb/*"/>
+   </UriGroup>
+   <Route ServerCluster="MAG_ACC2" UriGroup="default_host_MAG_ACC2_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCepss_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/pqi/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/pr/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/vinsearch/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCepss" UriGroup="default_host_ACCepss_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCmum1_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/crsaxis/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/crsxfire/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/mum/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCmum1" UriGroup="default_host_ACCmum1_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline2_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/inc/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/mar/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/coc/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline2" UriGroup="default_host_ACConline2_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline3_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/vpo/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline3" UriGroup="default_host_ACConline3_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline1_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epa/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline1" UriGroup="default_host_ACConline1_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline8_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/dojo/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epp/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline8" UriGroup="default_host_ACConline8_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline5_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/sdb/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/adm-web/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline5" UriGroup="default_host_ACConline5_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline4_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/war/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline4" UriGroup="default_host_ACConline4_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline7_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/dojo/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epd/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epd-service/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline7" UriGroup="default_host_ACConline7_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACConline6_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/dojo/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/eapps/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACConline6" UriGroup="default_host_ACConline6_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCservices_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epa-service/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/adm-service/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/epd-service/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/eLeadWS/*"/>
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/war-services/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCservices" UriGroup="default_host_ACCservices_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCepss1_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/vinsearch/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCepss1" UriGroup="default_host_ACCepss1_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCepss2_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/pqi/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCepss2" UriGroup="default_host_ACCepss2_URIs" VirtualHostGroup="default_host"/>
+   <UriGroup Name="default_host_ACCepss3_URIs">
+      <Uri AffinityCookie="JSESSIONID" AffinityURLIdentifier="jsessionid" Name="/pr/*"/>
+   </UriGroup>
+   <Route ServerCluster="ACCepss3" UriGroup="default_host_ACCepss3_URIs" VirtualHostGroup="default_host"/>
+   <RequestMetrics armEnabled="false" loggingEnabled="true" rmEnabled="false" traceLevel="HOPS">
+      <filters enable="false" type="URI">
+         <filterValues enable="false" value="/snoop"/>
+         <filterValues enable="false" value="/hitcount"/>
+         <filterValues enable="false" value="/servlet/snoop"/>
+         <filterValues enable="false" value="/webapp/examples/HitCount"/>
+      </filters>
+      <filters enable="false" type="SOURCE_IP">
+         <filterValues enable="false" value="255.255.255.255"/>
+         <filterValues enable="false" value="254.254.254.254"/>
+      </filters>
+      <filters enable="false" type="JMS">
+         <filterValues enable="false" value="destination=aaa"/>
+      </filters>
+      <filters enable="false" type="WEB_SERVICES">
+         <filterValues enable="false" value="wsdlPort=aaa:op=bbb:nameSpace=ccc"/>
+      </filters>
+   </RequestMetrics>
+</Config>

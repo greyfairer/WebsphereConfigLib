@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!-- ######## ProdDeploy.xml ###### -->
+
+<!-- Author: Barry Searle -->
+<!-- (C) Copyright IBM Corp. 2004,2005 - All Rights Reserved.
+ * DISCLAIMER:
+ * The following source code is sample code created by IBM Corporation.
+ * This sample code is not part of any standard IBM product and is provided
+ * to you solely for the purpose of assisting you in the development of your
+ * applications.  The code is provided "AS IS", without warranty or condition
+ * of any kind.  IBM shall not be liable for any damages arising out of your
+ * use of the sample code, even if IBM has been advised of the possibility of
+ * such damages.
+ *
+ * Change History:
+ * 2.0 (10feb2006) added support for JYTHON (or JACL), sets target host+port
+ * 1.3 (22apr2005) API: PARAM-1 is JACLdistDir, eliminated DEPLOY_WAS param
+ * 1.2 (14jan2005) reordered wsadmin script parameters
+ * 1.1 (17dec2004) initial version.
+ *
+-->
+<project name="autoDeploy" default="update" basedir=".">
+
+	<property name="lang" value="jython" />
+	<property name="langExt" value="py" />
+	<property name="failOnError" value="true" />
+
+	<property name="wasroot" value="/opt/IBM/WebSphere/AppServer" />
+	<property name="host" value="localhost" />
+	<property name="port" value="8879" />
+
+	<property environment="env"/>
+	<condition property="deployBaseDir" value="${env.DEPLOY_BASEDIR}" else="/var/MLEwsadmin">
+		<isset property="env.DEPLOY_BASEDIR" />
+	</condition>
+
+	<property name="distDir" value="${deployBaseDir}/DeployNow/" />
+
+	<taskdef name="wsAdmin" classname="com.ibm.websphere.ant.tasks.WsAdmin" />
+	<target name="install">
+		<path id="toConvert1">
+			<pathelement location="${distDir}" />
+		</path>
+		<pathconvert dirsep="/" property="newDistDir" refid="toConvert1" />
+		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="${lang}" script="automatedDeploy.${langExt}">
+			<arg value="install" />
+			<arg value="${failOnError}" />
+			<arg value="${newDistDir}" />
+		</wsAdmin>
+	</target>
+	<target name="confirm">
+		<path id="toConvert1">
+			<pathelement location="${distDir}" />
+		</path>
+		<pathconvert dirsep="/" property="newDistDir" refid="toConvert1" />
+		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="${lang}" script="automatedDeploy.${langExt}">
+			<arg value="confirm" />
+			<arg value="${failOnError}" />
+			<arg value="${newDistDir}" />
+		</wsAdmin>
+	</target>
+	<target name="syncRippleStart">
+		<path id="toConvert1">
+			<pathelement location="${distDir}" />
+		</path>
+		<pathconvert dirsep="/" property="newDistDir" refid="toConvert1" />
+		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="${lang}" script="automatedDeploy.${langExt}">
+			<arg value="syncRippleStart" />
+			<arg value="${failOnError}" />
+			<arg value="${newDistDir}" />
+		</wsAdmin>
+	</target>
+	<target name="update">
+		<path id="toConvert1">
+			<pathelement location="${distDir}" />
+		</path>
+		<pathconvert dirsep="/" property="newDistDir" refid="toConvert1" />
+		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="${lang}" script="automatedDeploy.${langExt}">
+			<arg value="update" />
+			<arg value="${failOnError}" />
+			<arg value="${newDistDir}" />
+		</wsAdmin>
+	</target>
+	<target name="uninstall">
+		<path id="toConvert1">
+			<pathelement location="${distDir}" />
+		</path>
+		<pathconvert dirsep="/" property="newDistDir" refid="toConvert1" />
+		<wsAdmin wasHome="${wasroot}" conntype="SOAP" host="${host}" port="${port}" lang="${lang}" script="automatedDeploy.${langExt}">
+			<arg value="uninstall" />
+			<arg value="${failOnError}" />
+			<arg value="${newDistDir}" />
+		</wsAdmin>
+	</target>
+</project>
