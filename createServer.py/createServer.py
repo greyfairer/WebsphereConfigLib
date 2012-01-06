@@ -65,9 +65,18 @@ def modifyAttributes(configNode, scope, xpath="Attributes/*"):
     for attributeNode in getChildElements(configNode, xpath):
         aarray = attributesToAArray(attributeNode)
         if len(aarray) > 0 or getChild(attributeNode, "Attributes"):
+            attribute = None
             if attributeNode.nodeName[0].isupper():
-                print 'Creating %s' % attributeNode.nodeName
-                attribute = AdminConfig.create(attributeNode.nodeName, scope, aarray)
+                print 'Creating/updating %s' % attributeNode.nodeName
+                if attributeNode.attributes.has_key("name"):
+                    for existingAttr in wsadminToList(AdminConfig.list(attributeNode.nodeName, scope)):
+                        if attributeNode.attributes['name'].value == AdminConfig.showAttribute(existingAttr, 'name'):
+                            attribute = existingAttr
+                            break
+                if attribute:
+                    AdminConfig.modify(attribute, aarray)
+                else:
+                    attribute = AdminConfig.create(attributeNode.nodeName, scope, aarray)
             else:
                 attribute = AdminConfig.showAttribute(scope, attributeNode.nodeName)
                 AdminConfig.modify(attribute, aarray)
@@ -187,14 +196,14 @@ def createDataSources(scopeString, scopePath, jdbcProviderNode):
             dataSourceProperties[attribute.name] = attribute.value
 
         dataSourceId = '%sJDBCProvider:%s/DataSource:%s/' % (
-        scopePath, jdbcProviderParams['name'], dataSourceProperties['name'])
+            scopePath, jdbcProviderParams['name'], dataSourceProperties['name'])
         dataSource = AdminConfig.getid(dataSourceId)
         if not len(dataSource):
             resourceProperties = []
             for resourcePropertyNode in getChildElements(dataSourceNode, "ResourceProperties/J2EEResourceProperty"):
                 resourceProperties.append("[%s %s \"%s\"]" % (
-                resourcePropertyNode.attributes['name'].value, resourcePropertyNode.attributes['type'].value,
-                resourcePropertyNode.attributes['value'].value))
+                    resourcePropertyNode.attributes['name'].value, resourcePropertyNode.attributes['type'].value,
+                    resourcePropertyNode.attributes['value'].value))
             dataSourceProperties['resourceProperties'] = "[%s]" % ",".join(resourceProperties)
             command = '[-name "%(name)s" -jndiName %(jndiName)s -dataStoreHelperClassName %(datasourceHelperClassname)s -configureResourceProperties %(resourceProperties)s -description "%(description)s"]'
             print "Creating Datasource %s" % dataSourceProperties
@@ -210,7 +219,7 @@ def createDataSources(scopeString, scopePath, jdbcProviderNode):
                        resourcePropertyNode.attributes['name'].value))
                 if not len(resourceProperty):
                     AdminConfig.create('J2EEResourceProperty', resourcePropertySet,
-                        attributesToAArray(resourcePropertyNode))
+                                       attributesToAArray(resourcePropertyNode))
                 else:
                     AdminConfig.modify(resourceProperty, [['value', resourcePropertyNode.attributes['value'].value]])
         if getChild(dataSourceNode, "Attributes"):
@@ -247,13 +256,14 @@ def createMailSessions(scopePath, mailProviderNode):
                     % (scopePath, mailSessionProperties['name'], resourcePropertyNode.attributes['name'].value))
                 if not len(resourceProperty):
                     AdminConfig.create('J2EEResourceProperty', resourcePropertySet,
-                        attributesToAArray(resourcePropertyNode))
+                                       attributesToAArray(resourcePropertyNode))
                 else:
                     AdminConfig.modify(resourceProperty, [['value', resourcePropertyNode.attributes['value'].value]])
 
 
 def createVirtualHosts(scopePath, virtualHostNode):
-    virtualHost = wsadminToList(AdminConfig.getid('%sVirtualHost:%s/' % (scopePath, virtualHostNode.attributes["name"].value)))[0]
+    virtualHost =
+    wsadminToList(AdminConfig.getid('%sVirtualHost:%s/' % (scopePath, virtualHostNode.attributes["name"].value)))[0]
     for hostAliasNode in getChildElements(virtualHostNode, "Attributes/HostAlias"):
         hostAliasProperties = attributesToAArray(hostAliasNode)
         print "Creating HostAlias"
@@ -274,7 +284,13 @@ def createURLs(scopePath, urlProviderNode):
         urlObjId = '%sURLProvider:/URL:%s/' % (scopePath, urlProperties['name'])
         urlObj = AdminConfig.getid(urlObjId)
         if not len(urlObj):
-            print "Creating URL %s" % urlProperties
+            for otherUrlObj in wsadminToList(AdminConfig.list('URL', urlProvider)):
+                if urlProperties['jndiName'] == AdminConfig.showAttribute('jndiName'):
+                    urlObj = otherUrlObj
+                    break
+
+        if not len(urlObj):
+            print "Creating URL %s " % urlProperties
             urlObj = AdminConfig.create('URL', urlProvider, mapToAArray(urlProperties))
         else:
             print "Modifying URL %s" % urlObj
@@ -404,7 +420,7 @@ def createJmsResources(scopePath, jmsProviderNode):
             if configNode.attributes.has_key("template"):
                 templateName = configNode.attributes["template"].value
                 print "AdminConfig.createUsingTemplate '%s' on '%s' using template %s" % (
-                configName, jmsProviderName, templateName)
+                    configName, jmsProviderName, templateName)
                 template = AdminConfig.listTemplates(configType, templateName).splitlines()[0]
                 configObj = AdminConfig.createUsingTemplate(configType, jmsProvider, attr, template)
             else:
