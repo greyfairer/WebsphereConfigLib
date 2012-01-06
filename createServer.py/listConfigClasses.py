@@ -82,6 +82,12 @@ class ConfigClasses:
         .withRequired('minConnections')
         .withRequired('unusedTimeout')
         )
+        .withComplex('sessionPool', AdminConfigClass('ConnectionPool')
+        .withRequired('connectionTimeout')
+        .withRequired('maxConnections')
+        .withRequired('minConnections')
+        .withRequired('unusedTimeout')
+        )
         )
         .withList('wasqs', AdminConfigClass('WASQueue')
         .withRequired('name')
@@ -90,11 +96,36 @@ class ConfigClasses:
         .withList('mqcfs', AdminConfigClass('MQQueueConnectionFactory')
         .withRequired('name')
         .withRequired('jndiName')
+        .withOptional('authDataAlias')
+        .withComplex('connectionPool', AdminConfigClass('ConnectionPool')
+        .withRequired('connectionTimeout')
+        .withRequired('maxConnections')
+        .withRequired('minConnections')
+        .withRequired('unusedTimeout')
+        )
+        .withComplex('sessionPool', AdminConfigClass('ConnectionPool')
+        .withRequired('connectionTimeout')
+        .withRequired('maxConnections')
+        .withRequired('minConnections')
+        .withRequired('unusedTimeout')
+        )
+        .withOptional('queueManager')
+        .withOptional('host')
+        .withOptional('port')
+        .withOptional('channel')
+        .withOptional('clientId')
         )
         .withList('mqs', AdminConfigClass('MQQueue')
         .withRequired('name')
         .withRequired('jndiName')
         .withRequired('baseQueueName')
+        .withOptional('baseQueueManagerName')
+        .withOptional('queueManagerHost')
+        .withOptional('queueManagerPort')
+        .withOptional('serverConnectionChannelName')
+        .withOptional('persistence')
+        .withOptional('expiry')
+        .withOptional('specifiedExpiry')
         ),
         AdminConfigClass('SIBMessagingEngine')
         .withRequired('name')
@@ -225,11 +256,11 @@ class ConfigClasses:
         )
     ]
     ServerConfigClass = AdminConfigClass('Server').withComplex('outputStreamRedirect',
-        AdminConfigClass('StreamRedirect')
-        .withRequired('rolloverType')
-        .withRequired('maxNumberOfBackupFiles')
-        .withRequired('baseHour')
-        .withRequired('rolloverPeriod')
+                                                               AdminConfigClass('StreamRedirect')
+                                                               .withRequired('rolloverType')
+                                                               .withRequired('maxNumberOfBackupFiles')
+                                                               .withRequired('baseHour')
+                                                               .withRequired('rolloverPeriod')
     ).withComplex('errorStreamRedirect', AdminConfigClass('StreamRedirect')
     .withRequired('rolloverType')
     .withRequired('maxNumberOfBackupFiles')
@@ -237,16 +268,28 @@ class ConfigClasses:
     .withRequired('rolloverPeriod')
     )
     ApplicationDeploymentClass = AdminConfigClass('ApplicationDeployment').withAttributeList('configs',
-        AdminConfigClass('ApplicationConfig')
-        .withComplex('sessionManagement', AdminConfigClass('SessionManager')
-        .withRequired('enableUrlRewriting')
-        .withRequired('enableCookies')
-        .withComplex('defaultCookieSettings', AdminConfigClass('Cookie')
-        .withRequired('name')
-        .withRequired('domain')
-        .withRequired('path')
-        )
-        )
+                                                                                             AdminConfigClass(
+                                                                                                 'ApplicationConfig')
+                                                                                             .withComplex(
+                                                                                                 'sessionManagement',
+                                                                                                 AdminConfigClass(
+                                                                                                     'SessionManager')
+                                                                                                 .withRequired(
+                                                                                                     'enableUrlRewriting')
+                                                                                                 .withRequired(
+                                                                                                     'enableCookies')
+                                                                                                 .withComplex(
+                                                                                                     'defaultCookieSettings'
+                                                                                                     , AdminConfigClass(
+                                                                                                         'Cookie')
+                                                                                                     .withRequired(
+                                                                                                         'name')
+                                                                                                     .withRequired(
+                                                                                                         'domain')
+                                                                                                     .withRequired(
+                                                                                                         'path')
+                                                                                                 )
+                                                                                             )
     ).withComplex('classloader', AdminConfigClass('Classloader')
     .withRequired('mode')
     .withAttributeList('libraries', AdminConfigClass('LibraryRef')
@@ -255,17 +298,22 @@ class ConfigClasses:
     )
     ).withRequired('binariesURL').withRequired('warClassLoaderPolicy')
     WebModuleDeploymentClass = AdminConfigClass('Module').withAttributeList('configs',
-        AdminConfigClass('WebModuleConfig')
-        .withComplex('sessionManagement', AdminConfigClass('SessionManager')
-        .withRequired('enable')
-        .withRequired('enableUrlRewriting')
-        .withRequired('enableCookies')
-        .withComplex('defaultCookieSettings', AdminConfigClass('Cookie')
-        .withRequired('name')
-        .withRequired('domain')
-        .withRequired('path')
-        )
-        )
+                                                                            AdminConfigClass('WebModuleConfig')
+                                                                            .withComplex('sessionManagement',
+                                                                                         AdminConfigClass(
+                                                                                             'SessionManager')
+                                                                                         .withRequired('enable')
+                                                                                         .withRequired(
+                                                                                             'enableUrlRewriting')
+                                                                                         .withRequired('enableCookies')
+                                                                                         .withComplex(
+                                                                                             'defaultCookieSettings',
+                                                                                             AdminConfigClass('Cookie')
+                                                                                             .withRequired('name')
+                                                                                             .withRequired('domain')
+                                                                                             .withRequired('path')
+                                                                                         )
+                                                                            )
     ).withRequired('uri').withOptional('startingWeight').withOptional('classloaderMode')
     EJBModuleDeploymentClass = AdminConfigClass('Module').withRequired('uri').withOptional('startingWeight')
     NodeConfigResources = [

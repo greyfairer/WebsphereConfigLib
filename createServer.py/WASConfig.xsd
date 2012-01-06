@@ -759,6 +759,50 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" name="authDataAlias" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>The alias used for database authentication at run time.
+                                                This alias is only used when the application resource reference is using
+                                                res-auth=Application.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="connectionPool" type="ConnectionPool">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional set of connection pool settings.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="sessionPool" type="ConnectionPool">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional set of connection pool settings.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="serverName" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="node" type="xs:string"/>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="optional"/>
+                    <xs:attribute name="jndiName" type="xs:string" use="optional"/>
+                    <xs:attribute name="authDataAlias" type="xs:string" use="optional"/>
+                    <xs:attribute name="description" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="WASQueue">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="optional"/>
+                    <xs:attribute name="jndiName" type="xs:string" use="optional"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="MQQueueConnectionFactory">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
                             <xs:annotation>
                                 <xs:documentation>The default data replication settings for this data replication
                                     domain.
@@ -780,6 +824,17 @@
                                             </xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
+                                    <xs:element minOccurs="0" name="sessionPool" type="ConnectionPool">
+                                        <xs:annotation>
+                                            <xs:documentation>An optional set of connection pool settings.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="queueManager" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="host" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="port" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="channel" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="clientId" type="xs:string"/>
                                 </xs:all>
                             </xs:complexType>
                         </xs:element>
@@ -790,8 +845,24 @@
                     <xs:attribute name="description" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="WASQueue">
+            <xs:element minOccurs="0" name="MQQueue">
                 <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Attributes">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element minOccurs="0" name="baseQueueName" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="baseQueueManagerName" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="queueManagerHost" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="queueManagerPort" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="serverConnectionChannelName" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="persistence" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="expiry" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="specifiedExpiry" type="xs:string"/>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
                     <xs:attribute name="name" type="xs:string" use="optional"/>
                     <xs:attribute name="jndiName" type="xs:string" use="optional"/>
                 </xs:complexType>
