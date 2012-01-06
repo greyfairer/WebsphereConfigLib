@@ -72,13 +72,18 @@ def showAttribute(objName, objType, attName, appName):
 
 #endDef
 
+def copyToTargetMappings(deployedObjID, objType, webModuleConfigId):
+    targetMappings = WebSphere.AdminConfig.showAttribute(deployedObjID, 'targetMappings')
+    for target in wsadminToList(targetMappings):
+        if target.find('DeploymentTargetMapping') != -1:
+            WebSphere.AdminConfig.modify(target, [['config', webModuleConfigId]])
+
 def setAttribute(objName, objType, attName, attValue, appName, showSetResult):
     log(INFO_,
         "setAttribute: Type=" + objType + "  Name=" + objName + "  App=" + appName + "  Attribute=" + attName + "  Value=" + attValue)
 
     if "Application" == objType:
-        objID = WebSphere.AdminConfig.showAttribute(WebSphere.AdminConfig.getid("/Deployment:" + objName + "/"),
-            "deployedObject")
+        objID = WebSphere.AdminConfig.showAttribute(WebSphere.AdminConfig.getid("/Deployment:" + objName + "/"),"deployedObject")
     else:
         objID = getModuleID(appName, objName)
         #endElse
@@ -100,6 +105,8 @@ def setAttribute(objName, objType, attName, attValue, appName, showSetResult):
                         attributes = [[attNameSplit[j], attributes]]
                     log(INFO_, "create %s with %s" % (attNamePrefix, attributes))
                     realObjID = WebSphere.AdminConfig.create(attNamePrefix, realObjID, attributes)
+                    if "WebModuleConfig" == attNamePrefix:
+                        copyToTargetMappings(objID, objType, realObjID)
                     return
             else:
                 realObjID = WebSphere.AdminConfig.showAttribute(realObjID, attNamePrefix)
