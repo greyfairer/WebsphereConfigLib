@@ -284,7 +284,7 @@ def createURLs(scopePath, urlProviderNode):
         urlObj = AdminConfig.getid(urlObjId)
         if not len(urlObj):
             for otherUrlObj in wsadminToList(AdminConfig.list('URL', urlProvider)):
-                if urlProperties['jndiName'] == AdminConfig.showAttribute('jndiName'):
+                if urlProperties['jndiName'] == AdminConfig.showAttribute(otherUrlObj, 'jndiName'):
                     urlObj = otherUrlObj
                     break
 
