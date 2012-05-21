@@ -262,8 +262,7 @@ def createMailSessions(scopePath, mailProviderNode):
 
 
 def createVirtualHosts(scopePath, virtualHostNode):
-    virtualHost =
-    wsadminToList(AdminConfig.getid('%sVirtualHost:%s/' % (scopePath, virtualHostNode.attributes["name"].value)))[0]
+    virtualHost = wsadminToList(AdminConfig.getid('%sVirtualHost:%s/' % (scopePath, virtualHostNode.attributes["name"].value)))[0]
     for hostAliasNode in getChildElements(virtualHostNode, "Attributes/HostAlias"):
         hostAliasProperties = attributesToAArray(hostAliasNode)
         print "Creating HostAlias"
